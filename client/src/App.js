@@ -1,13 +1,27 @@
 import './App.css';
+import TableDisplay from './components/TableDisplay'
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Test czy działa</h1>
-      <p>Gownoo</p>
-      <h5>Sex Asuna PLZ</h5>
-    </div>
-  );
+	const resRows = [
+		{
+			'id':1,
+			'desc':"123"
+		},
+		{
+			'id':2,
+			'desc':"1234"
+		},
+		{
+			'id':3,
+			'desc':"12345"
+		}
+	];
+	
+    return (
+        <div className="App">
+            <TableDisplay rows={resRows}/>
+        </div>
+    );
 }
 
 export default App;

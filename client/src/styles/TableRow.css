@@ -1,0 +1,17 @@
+.table-row {
+    min-height: 30px;
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    border: 1px solid black;
+}
+
+.table-data {
+    height: inherit;
+    min-width: 60px;
+
+    background-color: whitesmoke;
+
+}
