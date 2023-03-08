@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import FooterBar from './components/FooterBar';
 
 function App() {
+	// Temporary placeholder for data from db
 	const resRows = [
 		{
 		  id: 1,
@@ -53,7 +54,391 @@ function App() {
 		  rodzaj: 'Mebel',
 		  typ: 'Stanowy',
 		  wybrakowanie: 'Nie'
-		}
+		},
+		{
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },,
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },,
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
+		  {
+			id: 1,
+			nr_laboranta: 2137,
+			ilosc: 1,
+			miejsce: 102,
+			nazwa: 'Ławka',
+			nr_inwentarzowy: 2115,
+			uzytkownik: 'Tamul',
+			rodzaj: 'Mebel',
+			typ: 'Stanowy',
+			wybrakowanie: 'Tak'
+		  },
 	  ]
 	;
 	
@@ -62,6 +447,7 @@ function App() {
 			<MenuBar/>
             <TableDisplay rows={resRows}/>
 			<FooterBar/>
+			<button className="nav-bar--toogle">O</button>
 			<NavBar/>
         </div>
     );
