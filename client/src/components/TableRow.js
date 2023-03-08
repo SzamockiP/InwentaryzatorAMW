@@ -1,6 +1,4 @@
 import React from 'react';
-import '../styles/TableRow.css';
-
 
 class TableRow extends React.Component{
 
@@ -10,14 +8,14 @@ class TableRow extends React.Component{
         for(let item in props.data){
             this.columns.push(props.data[item]);
         }
-        this.columns = this.columns.map(data => {return(<div className='table-data'>{data}</div>)})
+        this.columns = this.columns.map(data => {return(<td className='table-data'>{data}</td>)})
     }
 
     render () {
         return (
-            <div className="table-row">
+            <tr className="table-row">
                 {this.columns}
-            </div>
+            </tr>
         );
     }
 };
