@@ -4,11 +4,8 @@ import MenuBar from './components/MenuBar'
 import NavBar from './components/NavBar';
 import FooterBar from './components/FooterBar';
 
-function toogleNavBar() {
-	if(document.getElementById('nav-bar').style.width == '0px')
-		document.getElementById('nav-bar').style.width = '250px';
-	else
-		document.getElementById('nav-bar').style.width = '0px';
+function openNavBar() {
+	document.getElementById('nav-bar').style.width = '250px';
 }
 
 function App() {
@@ -454,7 +451,7 @@ function App() {
 			<MenuBar/>
             <TableDisplay rows={resRows}/>
 			<FooterBar/>
-			<button className="nav-bar--toogle" onClick={toogleNavBar}>O</button>
+			<button className="nav-bar--open" onClick={openNavBar}>O</button>
 			<NavBar/>
         </div>
     );
