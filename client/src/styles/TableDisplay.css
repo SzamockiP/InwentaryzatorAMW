@@ -1,0 +1,27 @@
+.table-display {
+    /* deletes gap between rows and data */
+    border-collapse: collapse;
+
+    display: block;
+    width: 100%;
+    
+    height: auto;
+    margin-bottom: auto;
+
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: auto;  /* Hide the horizontal scroll */
+}
+
+.table-row {
+    width: 100%;
+}
+
+.table-data {
+    /* changes border color of table */
+    border: 1px solid black;
+    
+    min-width: 20px;
+    padding: 5px 15px 5px 10px;
+
+    background-color: whitesmoke;
+}
