@@ -5,17 +5,17 @@ import NavBar from './components/NavBar';
 import FooterBar from './components/FooterBar';
 
 function toogleNavBar() {
-	if(document.getElementById('nav-bar').style.width == '0')
+	if(document.getElementById('nav-bar').style.width == '0px')
 		document.getElementById('nav-bar').style.width = '250px';
 	else
-		document.getElementById('nav-bar').style.width = '0';
+		document.getElementById('nav-bar').style.width = '0px';
 }
 
 function App() {
 	// Temporary placeholder for data from db
 	const resRows = [
 		{
-		  id: 1,
+		  id: 2,
 		  nr_laboranta: 2137,
 		  ilosc: 1,
 		  miejsce: 102,
