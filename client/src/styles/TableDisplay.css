@@ -12,6 +12,11 @@
     overflow-x: auto;  /* Hide the horizontal scroll */
 }
 
+.table-display__thead .table-data{
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
 .table-row {
     width: 100%;
 }

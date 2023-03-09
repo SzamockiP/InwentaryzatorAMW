@@ -4,6 +4,13 @@ import MenuBar from './components/MenuBar'
 import NavBar from './components/NavBar';
 import FooterBar from './components/FooterBar';
 
+function toogleNavBar() {
+	if(document.getElementById('nav-bar').style.width == '0')
+		document.getElementById('nav-bar').style.width = '250px';
+	else
+		document.getElementById('nav-bar').style.width = '0';
+}
+
 function App() {
 	// Temporary placeholder for data from db
 	const resRows = [
@@ -447,7 +454,7 @@ function App() {
 			<MenuBar/>
             <TableDisplay rows={resRows}/>
 			<FooterBar/>
-			<button className="nav-bar--toogle">O</button>
+			<button className="nav-bar--toogle" onClick={toogleNavBar}>O</button>
 			<NavBar/>
         </div>
     );

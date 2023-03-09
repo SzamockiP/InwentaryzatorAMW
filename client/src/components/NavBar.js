@@ -2,7 +2,7 @@ import '../styles/NavBar.css';
 
 function NavBar(){
     return (
-        <div className="nav-bar">
+        <div className="nav-bar" id='nav-bar'>
 
         </div>
     );
