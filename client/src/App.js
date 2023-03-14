@@ -12,7 +12,6 @@ function App() {
     return (
         <div className="app">
 			<MenuBar/>
-			
             <TableDisplay/>
 			<FooterBar/>
 			<button className="nav-bar--open" onClick={openNavBar}>O</button>
