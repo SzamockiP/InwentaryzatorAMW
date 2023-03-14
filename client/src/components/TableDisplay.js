@@ -1,59 +1,30 @@
 import React from 'react';
+import Axios from 'axios';
 import TableRow from './TableRow';
 import '../styles/TableDisplay.css';
 
 class TableDisplay extends React.Component{
-    
+    getRekordy(){
+        Axios.get('http://localhost:3001/dane_rekordy').then((response) => {
+            this.setState({resRows:response.data});
+        });
+    }
 
     constructor (props) {
         super(props);
-        // Temporary placeholder for data from db
-        this.resRows = [
-            {
-                id: 1,
-                nr_laboranta: 2137,
-                ilosc: 1,
-                miejsce: 102,
-                nazwa: 'Ławka',
-                nr_inwentarzowy: 2115,
-                uzytkownik: 'Tamul',
-                rodzaj: 'Mebel',
-                typ: true,
-                wybrakowanie: false
-            },
-            {
-                id: 2,
-                nr_laboranta: 2137,
-                ilosc: 1,
-                miejsce: 102,
-                nazwa: 'Ławka',
-                nr_inwentarzowy: 2115,
-                uzytkownik: 'Tamul',
-                rodzaj: 'Mebel',
-                typ: false,
-                wybrakowanie: false
-            },
-            {
-                id: 3,
-                nr_laboranta: 2137,
-                ilosc: 1,
-                miejsce: 102,
-                nazwa: 'Ławka',
-                nr_inwentarzowy: 2115,
-                uzytkownik: 'Tamul',
-                rodzaj: 'Mebel',
-                typ: true,
-                wybrakowanie: true
-            }
-        ];
-        console.log(this.props.link)
+        // state for rekordy data
+        this.state = {
+            resRows:[],
+            page:1
+        };
+        // get data from table rekordy
+        this.getRekordy();
     }
 
 
     render() {
-        console.log('TableRerender');
         // creates list of <TableRow/> containing data from props.rows
-        this.rows = this.resRows.map(row => {return (<TableRow key={row.id} data={row}/>)});
+        this.rows = this.state.resRows.map(row => {return (<TableRow key={row.id} data={row}/>)});
 
         return (
             <table className="table-display">

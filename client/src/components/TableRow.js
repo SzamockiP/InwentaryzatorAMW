@@ -1,27 +1,54 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
 
 class TableRow extends React.Component{
+    getUzytkownicy(){
+        Axios.get('http://localhost:3001/dane_uzytkownicy').then((response) => {
+            this.setState({uzytkownicy:response.data});
+        });
+    }
+
+    getMiejsca(){
+        Axios.get('http://localhost:3001/dane_miejsca').then((response) => {
+            this.setState({miejsca:response.data});
+        });
+    }
+
+    getLaboranci(){
+        Axios.get('http://localhost:3001/dane_laboranci').then((response) => {
+            this.setState({laboranci:response.data});
+        });
+    }
+
+    getRodzaje(){
+        Axios.get('http://localhost:3001/dane_rodzaje').then((response) => {
+            this.setState({rodzaje:response.data});
+        });
+    }
+
     constructor (props) {
         super(props);
         this.data = this.props.data;
         this.state = {
-            inputValue: null
+            inputValue: null,
+            uzytkownicy:[],
+            miejsca:[],
+            rodzaje:[],
+            laboranci:[]
         };
         this.handleInputChange = this.handleInputChange.bind(this);
 
-        // fill these variables with data from DB
-        this.nr_laborantow = [1,2,3,4];
-        this.miejsca = [303,111,2];
-        this.uzytkownicy = ['Adam', "Marek", "Heniek"];
-        this.rodzaje = ['Komputery', 'Stoły', 'Krzesła'];
+        // gets all data for states from db
+        this.getLaboranci();
+        this.getMiejsca();
+        this.getRodzaje();
+        this.getUzytkownicy();
     }
 
     handleInputChange(event) {
         this.setState({
             inputValue: event.target.value
         });
-        
-        console.log(this.state, event.target.value, event.target.name)
         this.data[event.target.name] = event.target.value;
 
         // Here you can make db update query
@@ -30,10 +57,10 @@ class TableRow extends React.Component{
 
     render () {
         // fetch here nr_laborantow, miejsca, uzytkownicy, rodzaje with data from db
-        const nr_laboranta_fields = this.nr_laborantow.map(data => {return(<option value={data}>{data}</option>)});
-        const miejsce_fields = this.miejsca.map(data => {return(<option value={data}>{data}</option>)});
-        const uzytkownik_fields = this.uzytkownicy.map(data => {return(<option value={data}>{data}</option>)});
-        const rodzaj_fields = this.rodzaje.map(data => {return(<option value={data}>{data}</option>)});
+        const laboranci_fields = this.state.laboranci.map(data => {return(<option value={data.id}>{data.nr_laboranta}</option>)});
+        const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
+        const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
+        const rodzaje_fields = this.state.rodzaje.map(data => {return(<option value={data.id}>{data.rodzaj}</option>)});
 
         return (
             <tr className="table-row">
@@ -43,7 +70,7 @@ class TableRow extends React.Component{
                 {/* selectable number field */}
                 <td className='table-data'>   
                     <select name={'nr_laboranta'} onChange={this.handleInputChange} defaultValue={this.data.nr_laboranta}>
-                        {nr_laboranta_fields}
+                        {laboranci_fields}
                     </select>
                 </td>
 
@@ -53,7 +80,7 @@ class TableRow extends React.Component{
                 {/* selectable number field */}
                 <td className='table-data'>   
                     <select name={'miejsce'} onChange={this.handleInputChange} defaultValue={this.data.miejsce}>
-                        {miejsce_fields}
+                        {miejsca_fields}
                     </select>
                 </td>
 
@@ -66,30 +93,30 @@ class TableRow extends React.Component{
                 {/* selectable text field */}
                 <td className='table-data'>   
                     <select name={'uzytkownik'} onChange={this.handleInputChange} defaultValue={this.data.uzytkownik}>
-                        {uzytkownik_fields}
+                        {uzytkownicy_fields}
                     </select>
                 </td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
                     <select name={'rodzaj'} onChange={this.handleInputChange} defaultValue={this.data.rodzaj}>
-                        {rodzaj_fields}
+                        {rodzaje_fields}
                     </select>
                 </td>
 
                 {/* selectable bool field */}
                 <td className='table-data'>
                     <select name={'typ'} onChange={this.handleInputChange} defaultValue={this.data.typ}>
-                        <option value={true}>Stanowy</option>
-                        <option value={false}>Bezstanowy</option>
+                        <option value={1}>Stanowy</option>
+                        <option value={0}>Bezstanowy</option>
                     </select>
                 </td>
 
                 {/* selectable bool field */}
                 <td className='table-data'>
                     <select name={'wybrakowanie'} onChange={this.handleInputChange} defaultValue={this.data.wybrakowanie}>
-                        <option value={true}>Tak</option>
-                        <option value={false}>Nie</option>
+                        <option value={1}>Tak</option>
+                        <option value={0}>Nie</option>
                     </select>
                 </td>
             </tr>
