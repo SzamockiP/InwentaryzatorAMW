@@ -5,7 +5,12 @@ import '../styles/TableDisplay.css';
 
 class TableDisplay extends React.Component{
     getRekordy(){
-        Axios.get('http://localhost:3001/dane_rekordy').then((response) => {
+
+        const url = new URL(window.location.href);
+        const urlParams = Object.fromEntries(url.searchParams.entries());
+        Axios.get('http://localhost:3001/dane_rekordy', {
+            params:urlParams
+        }).then((response) => {
             this.setState({resRows:response.data});
         });
     }

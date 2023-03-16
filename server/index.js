@@ -16,7 +16,16 @@ const db = mysql.createConnection({
 
 // get data from table rekordy
 app.get('/dane_rekordy', (req, res)=>{
-    db.query("SELECT * FROM rekordy", (err, result)=> {
+    console.log(req.query);
+    const conditions = Object.entries(req.query)
+        .map(([key, value]) => `${key}=${value}`)
+        .join(" AND ");
+    let query = "SELECT * FROM rekordy";
+    if(conditions)
+        query += " WHERE " + conditions;
+    console.log(query);
+
+    db.query(query , (err, result)=> {
         if(err)
             console.log(err)
         else
