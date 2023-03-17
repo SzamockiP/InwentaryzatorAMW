@@ -30,11 +30,11 @@ class TableRow extends React.Component{
         super(props);
         this.data = this.props.data;
         this.state = {
-            inputValue: null,
             uzytkownicy:[],
             miejsca:[],
             rodzaje:[],
-            laboranci:[]
+            laboranci:[],
+            shouldRender:true
         };
         this.handleInputChange = this.handleInputChange.bind(this);
 
@@ -55,8 +55,26 @@ class TableRow extends React.Component{
         // place for query
     }    
 
+    handleRowDelete = () => {
+        this.setState({shouldRender:false})
+        Axios.delete(`http://localhost:3001/dane_rekordy/${this.data.id}`)
+        .then(response => {
+          console.log(response.data);
+          // update the state or do something else
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
+    }
+
     render () {
         // fetch here nr_laborantow, miejsca, uzytkownicy, rodzaje with data from db
+        if (!this.state.shouldRender) {
+            return null; // don't render anything if shouldRender is false
+        }
+
         const laboranci_fields = this.state.laboranci.map(data => {return(<option value={data.id}>{data.nr_laboranta}</option>)});
         const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
         const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
@@ -118,6 +136,10 @@ class TableRow extends React.Component{
                         <option value={1}>Tak</option>
                         <option value={0}>Nie</option>
                     </select>
+                </td>
+
+                <td className='table-data'>
+                    <button className="table-data__delete" onClick={this.handleRowDelete}>Usuń</button>
                 </td>
             </tr>
         );

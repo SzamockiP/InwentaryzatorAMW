@@ -87,6 +87,19 @@ app.get('/dane_laboranci', (req, res)=>{
     });
 })
 
+app.delete('/dane_rekordy/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM rekordy WHERE id = ${id}`;
+    db.query(sql, (error, results, fields) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send('Error deleting row');
+      } else {
+        res.send('Row deleted successfully');
+      }
+    });
+  })
+
 // run server
 app.listen(3001, ()=> {
     console.log("Your server is running!");

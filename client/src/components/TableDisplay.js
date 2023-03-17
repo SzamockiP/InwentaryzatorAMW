@@ -68,6 +68,7 @@ class TableDisplay extends React.Component{
                         <td className='table-data'>Rodzaj</td>
                         <td className='table-data'>Typ</td>
                         <td className='table-data'>Wybrakowanie</td>
+                        <td className='table-data'>Funkcje</td>
                     </tr>
                 </thead>
                 <tbody>
