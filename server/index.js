@@ -7,6 +7,7 @@ const mysql = require('mysql');
 app.use(cors())
 app.use(express.json())
 
+// create connection
 const db = mysql.createConnection({
     user:'root',
     host:'localhost',
@@ -16,19 +17,32 @@ const db = mysql.createConnection({
 
 // get data from table rekordy
 app.get('/dane_rekordy', (req, res)=>{
-    console.log(req.query);
-    const conditions = Object.entries(req.query)
-        .map(([key, value]) => `${key}=${value}`)
-        .join(" AND ");
-    let query = "SELECT * FROM rekordy";
-    if(conditions)
-        query += " WHERE " + conditions;
+    let query = `SELECT * FROM rekordy`;
+
+    let conditions = [];
+
+    // add conditions which are filled
+    if(req.query.laborant_id) conditions.push(`laborant_id = ${req.query.laborant_id} `);
+    if(req.query.ilosc) conditions.push(`ilosc = ${req.query.ilosc}`);
+    if(req.query.miejsce_id) conditions.push(`miejsce_id = ${req.query.miejsce_id}`);
+    if(req.query.nazwa) conditions.push(`nazwa LIKE '%${req.query.nazwa}%'`);
+    if(req.query.nr_inwentarzowy) conditions.push(`nr_inwentarzowy = ${req.query.nr_inwentarzowy}`);
+    if(req.query.uzytkownik_id) conditions.push(`uzytkownik_id = ${req.query.uzytkownik_id}`);
+    if(req.query.rodzaj_id) conditions.push(`rodzaj_id = ${req.query.rodzaj_id}`);
+    if(req.query.typ) conditions.push(`typ = ${req.query.typ}`);
+    if(req.query.wybrakowanie) conditions.push(`wybrakowanie = ${req.query.wybrakowanie}`);
+
+    // if there are conditions add them, else don't
+    if(conditions.length > 0) query += " WHERE " + conditions.join(" AND ") + ` LIMIT ${(req.query.page-1)*30},${req.query.page*30}`;
+    else query += ` LIMIT ${(req.query.page-1)*30},${req.query.page*30}`;
+
     console.log(query);
 
+    // return query response from database
     db.query(query , (err, result)=> {
         if(err)
             console.log(err)
-        else
+        else``
             res.send(result)
     });
 })
@@ -73,6 +87,7 @@ app.get('/dane_laboranci', (req, res)=>{
     });
 })
 
+// run server
 app.listen(3001, ()=> {
     console.log("Your server is running!");
 })
