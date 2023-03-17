@@ -59,6 +59,21 @@ class NavBar extends React.Component{
         this.props.onSearchDataUpdate(searchParams);
     }
 
+    // Resets filters and resets table display
+    resetFilter = () => {
+        document.getElementById('nr_laborantaSearch').value = '';
+        document.getElementById('iloscSearch').value = '';
+        document.getElementById('miejsceSearch').value = '';
+        document.getElementById('nazwaSearch').value = '';
+        document.getElementById('nr_inwentarzowySearch').value = '';
+        document.getElementById('uzytkownikSearch').value = '';
+        document.getElementById('rodzajSearch').value = '';
+        document.getElementById('typSearch').value = '';
+        document.getElementById('wybrakowanieSearch').value = '';
+
+        this.props.onSearchDataUpdate({});
+    }
+
     constructor(props) {
         super(props);
 
@@ -135,6 +150,7 @@ class NavBar extends React.Component{
                 </select>
 
                 <button onClick={this.searchFilter}>Szukaj</button>
+                <button onClick={this.resetFilter}>Reset</button>
             </div>
         );
     };
