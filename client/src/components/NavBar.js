@@ -100,7 +100,7 @@ class NavBar extends React.Component{
 
         return (
             <div className="nav-bar" id='nav-bar'>
-                <span class="nav-bar--close" onClick={this.closeNavBar}>&times;</span>
+                <span className="nav-bar--close" onClick={this.closeNavBar}>&times;</span>
                 <br/>
 
                 <hr/>
@@ -175,7 +175,7 @@ class NavBar extends React.Component{
                 <br/>
                 <br/>
                 <button className="button" onClick={this.searchFilter}>Szukaj</button>
-                <button onClick={this.resetFilter}>Reset</button>
+                <button className="button" onClick={this.resetFilter}>Reset</button>
             </div>
             
         );
