@@ -1,6 +1,17 @@
 .menu-bar {
+    display: flex;
     height: fit-content;
     min-height: 50px;
     width: 100%;
-    background-color: red;
+    background-color: navy;
+}
+
+.logo{
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+}
+
+h1{
+    color:ghostwhite;
 }

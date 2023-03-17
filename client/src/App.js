@@ -14,7 +14,7 @@ function App() {
 			<MenuBar/>
             <TableDisplay/>
 			<FooterBar/>
-			<button className="nav-bar--open" onClick={openNavBar}>O</button>
+			<button className="nav-bar--open" onClick={openNavBar}>Szukaj</button>
 			<NavBar/>
         </div>
     );

@@ -1,3 +1,5 @@
+
+
 .nav-bar {
     position: absolute;
     top: 0;
@@ -6,7 +8,7 @@
 
     
     height: 100%;
-    background-color: yellow;
+    background-color: #0534b5;
 
     overflow-x: hidden;
     transition: 0.5s;
@@ -17,10 +19,68 @@
 
 .nav-bar--open{
     position: absolute;
-    top: 20px;
+    top: 25px;
     right: 20px;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    border-radius: 12px;
 }
+
+.nav-bar--open:hover {
+    background-color: #555555;
+    color: white;
+  }
 
 .nav-bar * {
     margin: 5px 30px 0 15px;
 }
+
+.button{
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.button:hover {
+    background-color: #353840;
+    color: white;
+  }
+
+  .nav-bar--close {
+    font-size: 45px;
+    font-weight: 600;
+    cursor: pointer;
+    color:white;
+  }
+
+  .nav-bar--close:hover{
+    color:#7f828a;
+  }
+
+  input, select{
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+  }
+  
+  input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0px #aaa;
+    border-color: black;
+  }
+
+  hr {
+    height: 1px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(223, 213, 213, 0.75), rgba(255, 255, 255, 0));
+    border: none;
+  }
+
+  label{
+    color: white;
+  }
