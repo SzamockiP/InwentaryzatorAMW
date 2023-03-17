@@ -25,8 +25,22 @@ class TableDisplay extends React.Component{
     }
 
     handleRowAddUpdate = () => {
+        
+        Axios.get('http://localhost:3001/dane_rekordy', {
+                params:{
+                    ...this.props.searchParams,
+                    page: this.state.page,
+                    order: this.state.orderBy
+                } 
+            })
+            .then((response) => {
+                this.setState({resRows:response.data});
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        
         this.setState({test:null});
-        console.log("dziala")
     }
 
     constructor (props) {

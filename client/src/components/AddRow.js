@@ -76,7 +76,19 @@ class TableRow extends React.Component{
             alert("Trzeba wypełnić wszystkie pola aby dodać rekord.")
             return
         }
-        console.log(newRowData);
+        // rerender whole component, so it has empty fields
+        this.setState({
+            laborant_id:undefined,
+            ilosc:undefined,
+            nazwa:undefined,
+            nr_inwentarzowy:undefined,
+            rodzaj_id:undefined,
+            typ:undefined,
+            wybrakowanie:undefined,
+            uzytkownik_id:undefined,
+            miejsce_id:undefined
+        })
+
         Axios.post(`http://localhost:3001/dane_rekordy/create`, {...newRowData})
             .then(response => {
                 console.log(response.data);
@@ -102,7 +114,11 @@ class TableRow extends React.Component{
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'nr_laboranta'} defaultValue="" onChange={(event) => this.setState({ laborant_id: event.target.value })}>
+                    <select name={'nr_laboranta'} 
+                        defaultValue="" 
+                        onChange={(event) => this.setState({ laborant_id: event.target.value })} 
+                        value={this.state.laborant_id ? this.state.laborant_id : ""}
+                    >
                         <option value=""></option>
                         {laboranci_fields}
                     </select>
@@ -110,12 +126,19 @@ class TableRow extends React.Component{
 
                 {/* number field */}
                 <td className='table-data'>
-                    <input type='number' name={"ilosc"} onChange={(event) => this.setState({ ilosc: event.target.value })}/>
+                    <input type='number' name={"ilosc"} 
+                        onChange={(event) => this.setState({ ilosc: event.target.value })}
+                        value={this.state.ilosc ? this.state.ilosc : ""}
+                    />
                 </td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'miejsce'} defaultValue="" onChange={(event) => this.setState({ miejsce_id: event.target.value })}>
+                    <select name={'miejsce'} 
+                        defaultValue="" 
+                        onChange={(event) => this.setState({ miejsce_id: event.target.value })}
+                        value={this.state.miejsce_id ? this.state.miejsce_id : ""}
+                    >
                         <option value=""></option>
                         {miejsca_fields}
                     </select>
@@ -123,17 +146,27 @@ class TableRow extends React.Component{
 
                 {/* text field */}
                 <td className='table-data'>
-                    <input type="text" name={'nazwa'} onChange={(event) => this.setState({ nazwa: event.target.value })}/>
+                    <input type="text" name={'nazwa'} 
+                        onChange={(event) => this.setState({ nazwa: event.target.value })}
+                        value={this.state.nazwa ? this.state.nazwa : ""}
+                    />
                 </td>
 
                 {/* number field */}
                 <td className='table-data'>
-                    <input type="number" name={'nr_inwentarzowy'} onChange={(event) => this.setState({ nr_inwentarzowy: event.target.value })}/>
+                    <input type="number" name={'nr_inwentarzowy'} 
+                        onChange={(event) => this.setState({ nr_inwentarzowy: event.target.value })}
+                        value={this.state.nr_inwentarzowy ? this.state.nr_inwentarzowy : ""}
+                    />
                 </td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'uzytkownik'} defaultValue="" onChange={(event) => this.setState({ uzytkownik_id: event.target.value })}>
+                    <select name={'uzytkownik'} 
+                        defaultValue="" 
+                        onChange={(event) => this.setState({ uzytkownik_id: event.target.value })}
+                        value={this.state.uzytkownik_id ? this.state.uzytkownik_id : ""}
+                    >
                         <option value=""></option>
                         {uzytkownicy_fields}
                     </select>
@@ -141,7 +174,11 @@ class TableRow extends React.Component{
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'rodzaj'} defaultValue="" onChange={(event) => this.setState({ rodzaj_id: event.target.value })}> 
+                    <select name={'rodzaj'} 
+                        defaultValue="" 
+                        onChange={(event) => this.setState({ rodzaj_id: event.target.value })}
+                        value={this.state.rodzaj_id ? this.state.rodzaj_id : ""}
+                    > 
                         <option value=""></option>
                         {rodzaje_fields}
                     </select>
@@ -149,7 +186,11 @@ class TableRow extends React.Component{
 
                 {/* selectable bool field */}
                 <td className='table-data'>
-                    <select name={'typ'} defaultValue="" onChange={(event) => this.setState({ typ: event.target.value })}>
+                    <select name={'typ'} 
+                        defaultValue="" 
+                        onChange={(event) => this.setState({ typ: event.target.value })}
+                        value={this.state.typ ? this.state.typ : ""}
+                    >
                         <option value=""></option>
                         <option value={1}>Stanowy</option>
                         <option value={0}>Bezstanowy</option>
@@ -158,7 +199,11 @@ class TableRow extends React.Component{
 
                 {/* selectable bool field */}
                 <td className='table-data'>
-                    <select name={'wybrakowanie'} defaultValue="" onChange={(event) => this.setState({ wybrakowanie: event.target.value })}>
+                    <select name={'wybrakowanie'} 
+                        defaultValue="" 
+                        onChange={(event) => this.setState({ wybrakowanie: event.target.value })}
+                        value={this.state.wybrakowanie ? this.state.wybrakowanie : ""}
+                    >
                         <option value=""></option>
                         <option value={1}>Tak</option>
                         <option value={0}>Nie</option>

@@ -102,7 +102,6 @@ app.delete('/dane_rekordy/delete/:id', (req, res) => {
 
 app.post('/dane_rekordy/create', (req,res) => {
     let sql;
-    console.log(req.body);
     const { laborant_id, ilosc, nazwa, nr_inwentarzowy, rodzaj_id, typ, wybrakowanie, uzytkownik_id, miejsce_id } = req.body;
 
     if (uzytkownik_id && miejsce_id) {
@@ -124,7 +123,7 @@ app.post('/dane_rekordy/create', (req,res) => {
 
     db.query(sql, (error) => {
         if (error) {
-        //   console.error(error);
+          console.error(error);
           res.status(500).send('Error inserting row');
         } else {
           res.send('Row inserted successfully');
