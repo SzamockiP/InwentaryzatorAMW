@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import TableRow from './TableRow';
+import AddRow from './AddRow'
 import '../styles/TableDisplay.css';
 
 class TableDisplay extends React.Component{
@@ -21,6 +22,11 @@ class TableDisplay extends React.Component{
                 console.error(error);
             });
         }
+    }
+
+    handleRowAddUpdate = () => {
+        this.setState({test:null});
+        console.log("dziala")
     }
 
     constructor (props) {
@@ -70,6 +76,7 @@ class TableDisplay extends React.Component{
                         <td className='table-data'>Wybrakowanie</td>
                         <td className='table-data'>Funkcje</td>
                     </tr>
+                    <AddRow onRowAdd={this.handleRowAddUpdate}/>
                 </thead>
                 <tbody>
                     {/* Rows of data */}

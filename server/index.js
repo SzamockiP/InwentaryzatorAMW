@@ -87,10 +87,10 @@ app.get('/dane_laboranci', (req, res)=>{
     });
 })
 
-app.delete('/dane_rekordy/:id', (req, res) => {
+app.delete('/dane_rekordy/delete/:id', (req, res) => {
     const id = req.params.id;
     const sql = `DELETE FROM rekordy WHERE id = ${id}`;
-    db.query(sql, (error, results, fields) => {
+    db.query(sql, (error) => {
       if (error) {
         console.error(error);
         res.status(500).send('Error deleting row');
@@ -99,6 +99,38 @@ app.delete('/dane_rekordy/:id', (req, res) => {
       }
     });
   })
+
+app.post('/dane_rekordy/create', (req,res) => {
+    let sql;
+    console.log(req.body);
+    const { laborant_id, ilosc, nazwa, nr_inwentarzowy, rodzaj_id, typ, wybrakowanie, uzytkownik_id, miejsce_id } = req.body;
+
+    if (uzytkownik_id && miejsce_id) {
+        sql = `INSERT INTO rekordy (laborant_id, ilosc, miejsce_id, nazwa, nr_inwentarzowy, uzytkownik_id, rodzaj_id, typ, wybrakowanie) `
+        + `VALUES (${laborant_id}, ${ilosc}, ${miejsce_id}, '${nazwa}', '${nr_inwentarzowy}', ${uzytkownik_id}, ${rodzaj_id}, ${typ}, ${wybrakowanie})`;
+    } 
+    else if (uzytkownik_id && !miejsce_id) {
+        sql = `INSERT INTO rekordy (laborant_id, ilosc, nazwa, nr_inwentarzowy, uzytkownik_id, rodzaj_id, typ, wybrakowanie) `
+        + `VALUES (${laborant_id}, ${ilosc}, '${nazwa}', '${nr_inwentarzowy}', ${uzytkownik_id}, ${rodzaj_id}, ${typ}, ${wybrakowanie})`;
+    } 
+    else if (!uzytkownik_id && miejsce_id) {
+        sql = `INSERT INTO rekordy (laborant_id, ilosc, miejsce_id, nazwa, nr_inwentarzowy, rodzaj_id, typ, wybrakowanie) `
+        + `VALUES (${laborant_id}, ${ilosc}, ${miejsce_id}, '${nazwa}', '${nr_inwentarzowy}', ${rodzaj_id}, ${typ}, ${wybrakowanie})`;
+    } 
+    else {
+        sql = `INSERT INTO rekordy (laborant_id, ilosc, nazwa, nr_inwentarzowy, rodzaj_id, typ, wybrakowanie) `
+        + `VALUES (${laborant_id}, ${ilosc}, '${nazwa}', '${nr_inwentarzowy}', ${rodzaj_id}, ${typ}, ${wybrakowanie})`;
+    }
+
+    db.query(sql, (error) => {
+        if (error) {
+        //   console.error(error);
+          res.status(500).send('Error inserting row');
+        } else {
+          res.send('Row inserted successfully');
+        }
+      });
+});
 
 // run server
 app.listen(3001, ()=> {

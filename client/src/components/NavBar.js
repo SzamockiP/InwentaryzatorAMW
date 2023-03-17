@@ -84,6 +84,7 @@ class NavBar extends React.Component{
             laboranci:[]
         };
 
+        // fetches data to fill the state
         this.getLaboranci();
         this.getMiejsca();
         this.getRodzaje();

@@ -33,10 +33,8 @@ class TableRow extends React.Component{
             uzytkownicy:[],
             miejsca:[],
             rodzaje:[],
-            laboranci:[],
-            shouldRender:true
+            laboranci:[]
         };
-        this.handleInputChange = this.handleInputChange.bind(this);
 
         // gets all data for states from db
         this.getLaboranci();
@@ -45,36 +43,53 @@ class TableRow extends React.Component{
         this.getUzytkownicy();
     }
 
-    handleInputChange(event) {
-        this.setState({
-            inputValue: event.target.value
-        });
-        this.data[event.target.name] = event.target.value;
+    handleRowAdd = () => {
+        // check if all required fields are filled
+        let flag = true;
+        let newRowData = {}
+        if(!this.state.laborant_id)flag = false;
+        else newRowData.laborant_id = this.state.laborant_id;
 
-        // Here you can make db update query
-        // place for query
-    }    
+        if(!flag || !this.state.ilosc) flag = false;
+        else newRowData.ilosc = this.state.ilosc;
 
-    handleRowDelete = () => {
-        this.setState({shouldRender:false})
-        Axios.delete(`http://localhost:3001/dane_rekordy/delete/${this.data.id}`)
-        .then(response => {
-          console.log(response.data);
-          // update the state or do something else
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        if(!flag || !this.state.nazwa) flag = false;
+        else newRowData.nazwa = this.state.nazwa;
 
+        if(!flag || !this.state.nr_inwentarzowy) flag = false;
+        else newRowData.nr_inwentarzowy = this.state.nr_inwentarzowy;
+        
+        if(!flag || !this.state.rodzaj_id) flag = false;
+        else newRowData.rodzaj_id = this.state.rodzaj_id;
 
+        if(!flag || !this.state.typ) flag = false;
+        else newRowData.typ = this.state.typ;
+        
+        if(!flag || !this.state.wybrakowanie) flag = false;
+        else newRowData.wybrakowanie = this.state.wybrakowanie;
+
+        if(this.state.uzytkownik_id) newRowData.uzytkownik_id = this.state.uzytkownik_id;
+        if(this.state.miejsce_id) newRowData.miejsce_id = this.state.miejsce_id;
+        
+        
+        if(!flag){
+            alert("Trzeba wypełnić wszystkie pola aby dodać rekord.")
+            return
+        }
+        console.log(newRowData);
+        Axios.post(`http://localhost:3001/dane_rekordy/create`, {...newRowData})
+            .then(response => {
+                console.log(response.data);
+                // update TableDisplay
+                this.props.onRowAdd({});
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     render () {
         // fetch here nr_laborantow, miejsca, uzytkownicy, rodzaje with data from db
-        if (!this.state.shouldRender) {
-            return null; // don't render anything if shouldRender is false
-        }
-
         const laboranci_fields = this.state.laboranci.map(data => {return(<option value={data.id}>{data.nr_laboranta}</option>)});
         const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
         const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
@@ -83,35 +98,42 @@ class TableRow extends React.Component{
         return (
             <tr className="table-row">
                 {/* unchangable id field */}
-                <td className='table-data'>{this.data.id}</td>
+                <td className='table-data'></td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'nr_laboranta'} onChange={this.handleInputChange} value={this.data.laborant_id}>
+                    <select name={'nr_laboranta'} defaultValue="" onChange={(event) => this.setState({ laborant_id: event.target.value })}>
+                        <option value=""></option>
                         {laboranci_fields}
                     </select>
                 </td>
 
                 {/* number field */}
-                <td className='table-data'><input type='number' name={"ilosc"} onChange={this.handleInputChange} value={this.data.ilosc}/></td>
+                <td className='table-data'>
+                    <input type='number' name={"ilosc"} onChange={(event) => this.setState({ ilosc: event.target.value })}/>
+                </td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'miejsce'} onChange={this.handleInputChange} value={this.data.miejsce_id ? this.data.miejsce_id : "" } >
+                    <select name={'miejsce'} defaultValue="" onChange={(event) => this.setState({ miejsce_id: event.target.value })}>
                         <option value=""></option>
                         {miejsca_fields}
                     </select>
                 </td>
 
                 {/* text field */}
-                <td className='table-data'><input type="text"   name={'nazwa'} onChange={this.handleInputChange} value={this.data.nazwa}/></td>
+                <td className='table-data'>
+                    <input type="text" name={'nazwa'} onChange={(event) => this.setState({ nazwa: event.target.value })}/>
+                </td>
 
                 {/* number field */}
-                <td className='table-data'><input type="number" name={'nr_inwentarzowy'} onChange={this.handleInputChange} value={this.data.nr_inwentarzowy}/></td>
+                <td className='table-data'>
+                    <input type="number" name={'nr_inwentarzowy'} onChange={(event) => this.setState({ nr_inwentarzowy: event.target.value })}/>
+                </td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'uzytkownik'} onChange={this.handleInputChange} value={this.data.uzytkownik_id ? this.data.uzytkownik_id : "" }>
+                    <select name={'uzytkownik'} defaultValue="" onChange={(event) => this.setState({ uzytkownik_id: event.target.value })}>
                         <option value=""></option>
                         {uzytkownicy_fields}
                     </select>
@@ -119,14 +141,16 @@ class TableRow extends React.Component{
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'rodzaj'} onChange={this.handleInputChange} value={this.data.rodzaj_id}>
+                    <select name={'rodzaj'} defaultValue="" onChange={(event) => this.setState({ rodzaj_id: event.target.value })}> 
+                        <option value=""></option>
                         {rodzaje_fields}
                     </select>
                 </td>
 
                 {/* selectable bool field */}
                 <td className='table-data'>
-                    <select name={'typ'} onChange={this.handleInputChange} value={this.data.typ}>
+                    <select name={'typ'} defaultValue="" onChange={(event) => this.setState({ typ: event.target.value })}>
+                        <option value=""></option>
                         <option value={1}>Stanowy</option>
                         <option value={0}>Bezstanowy</option>
                     </select>
@@ -134,14 +158,15 @@ class TableRow extends React.Component{
 
                 {/* selectable bool field */}
                 <td className='table-data'>
-                    <select name={'wybrakowanie'} onChange={this.handleInputChange} value={this.data.wybrakowanie}>
+                    <select name={'wybrakowanie'} defaultValue="" onChange={(event) => this.setState({ wybrakowanie: event.target.value })}>
+                        <option value=""></option>
                         <option value={1}>Tak</option>
                         <option value={0}>Nie</option>
                     </select>
                 </td>
 
                 <td className='table-data'>
-                    <button className="table-data__delete" onClick={this.handleRowDelete}>Usuń</button>
+                    <button className="table-data__delete" onClick={this.handleRowAdd}>Dodaj</button>
                 </td>
             </tr>
         );
