@@ -4,15 +4,23 @@ import TableRow from './TableRow';
 import '../styles/TableDisplay.css';
 
 class TableDisplay extends React.Component{
-    getRekordy(){
-
-        const url = new URL(window.location.href);
-        const urlParams = Object.fromEntries(url.searchParams.entries());
-        Axios.get('http://localhost:3001/dane_rekordy', {
-            params:urlParams
-        }).then((response) => {
-            this.setState({resRows:response.data});
-        });
+    // update everything, i think it runs before rerender, so it doesnt trigger it again
+    componentDidUpdate(prevProps) {
+        if (prevProps.searchParams !== this.props.searchParams) {
+            Axios.get('http://localhost:3001/dane_rekordy', {
+                params:{
+                    ...this.props.searchParams,
+                    page: this.state.page,
+                    order: this.state.orderBy
+                } 
+            })
+            .then((response) => {
+                this.setState({resRows:response.data});
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
     }
 
     constructor (props) {
@@ -20,16 +28,30 @@ class TableDisplay extends React.Component{
         // state for rekordy data
         this.state = {
             resRows:[],
-            page:1
+            page:1,
+            orderBy:null
         };
+
         // get data from table rekordy
-        this.getRekordy();
+        Axios.get('http://localhost:3001/dane_rekordy', {
+                params:{
+                    ...this.props.searchParams,
+                    page: this.state.page,
+                    order: this.state.orderBy
+                } 
+            })
+            .then((response) => {
+                this.setState({resRows:response.data});
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
 
     render() {
         // creates list of <TableRow/> containing data from props.rows
-        this.rows = this.state.resRows.map(row => {return (<TableRow key={row.id} data={row}/>)});
+        const rows = this.state.resRows.map(row => { return (<TableRow key={row.id} data={row}/>) });
 
         return (
             <table className="table-display">
@@ -50,7 +72,7 @@ class TableDisplay extends React.Component{
                 </thead>
                 <tbody>
                     {/* Rows of data */}
-                    {this.rows}
+                    {rows}
                 </tbody>
                 <tfoot>
                     {/* Add here an empty row to edit */}

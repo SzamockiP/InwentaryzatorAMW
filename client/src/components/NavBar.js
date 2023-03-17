@@ -27,76 +27,42 @@ class NavBar extends React.Component{
         });
     }
 
-    // Runs after component renders
-    componentDidUpdate(){
-        const urlParams = new URL(window.location.href).searchParams;
-        if(urlParams.get("nr_laboranta"))
-            document.getElementById('nr_laborantaSearch').value = urlParams.get("laborant_id");
-        if(urlParams.get("ilosc"))
-            document.getElementById('iloscSearch').value = urlParams.get("ilosc");
-        if(urlParams.get("miejsce"))
-            document.getElementById('miejsceSearch').value = urlParams.get("miejsce_id");
-        if(urlParams.get("nazwa"))
-            document.getElementById('nazwaSearch').value = urlParams.get("nazwa");
-        if(urlParams.get("nr_inwentarzowy"))
-            document.getElementById('nr_inwentarzowySearch').value = urlParams.get("nr_inwentarzowy");
-        if(urlParams.get("uzytkownik"))
-            document.getElementById('uzytkownikSearch').value = urlParams.get("uzytkownik_id");
-        if(urlParams.get("rodzaj"))
-            document.getElementById('rodzajSearch').value = urlParams.get("rodzaj_id");
-
-        if(urlParams.get("typ")){
-            if(urlParams.get("typ") === "true")
-                document.getElementById('typSearch').value = true;
-            else if(urlParams.get("typ") === "false")
-                document.getElementById('typSearch').value = false;
-        }
-
-        if(urlParams.get("wybrakowanie")){
-            if(urlParams.get("wybrakowanie") === "true")
-                document.getElementById('wybrakowanieSearch').value = true;
-            else if(urlParams.get("wybrakowanie") === "false")
-                document.getElementById('wybrakowanieSearch').value = false;
-        } 
-    }
-
-    // Closes NavBar
     closeNavBar() {
         document.getElementById('nav-bar').style.width = '0px'
     }
 
     // Adds filters to the url
-    searchFilter() {
-        const searchParams = {
-            'laborant_id' : document.getElementById('nr_laborantaSearch').value,
-            'ilosc':document.getElementById('iloscSearch').value,
-            'miejsce_id': document.getElementById('miejsceSearch').value,
-            'nazwa': document.getElementById('nazwaSearch').value,
-            'nr_inwentarzowy':document.getElementById('nr_inwentarzowySearch').value,
-            'uzytkownik_id':document.getElementById('uzytkownikSearch').value,
-            'rodzaj_id':document.getElementById('rodzajSearch').value,
-            'typ':document.getElementById('typSearch').value,
-            'wybrakowanie':document.getElementById('wybrakowanieSearch').value
-        }
+    searchFilter = () => {
+        let searchParams = {};
 
-        const url = new URL(window.location.href);
-        let urlParams = url.searchParams;
+        // add all filed search values to the searchParams
+        if(document.getElementById('nr_laborantaSearch').value) 
+            searchParams.laborant_id = document.getElementById('nr_laborantaSearch').value;
+        if(document.getElementById('iloscSearch').value)
+            searchParams.ilosc = document.getElementById('iloscSearch').value;
+        if(document.getElementById('miejsceSearch').value)
+            searchParams.miejsce_id = document.getElementById('miejsceSearch').value;
+        if(document.getElementById('nazwaSearch').value)
+            searchParams.nazwa = document.getElementById('nazwaSearch').value;
+        if(document.getElementById('nr_inwentarzowySearch').value)
+            searchParams.nr_inwentarzowy = document.getElementById('nr_inwentarzowySearch').value;
+        if(document.getElementById('uzytkownikSearch').value)
+            searchParams.uzytkownik_id = document.getElementById('uzytkownikSearch').value;
+        if(document.getElementById('rodzajSearch').value)
+            searchParams.rodzaj_id = document.getElementById('rodzajSearch').value
+        if(document.getElementById('typSearch').value)
+            searchParams.typ = document.getElementById('typSearch').value;
+        if(document.getElementById('wybrakowanieSearch').value)
+            searchParams.wybrakowanie = document.getElementById('wybrakowanieSearch').value;
         
-        for (let key in searchParams) {
-            if(searchParams[key])
-                urlParams.set(key,searchParams[key])
-            else
-                urlParams.delete(key)
-        }
-
-        window.location.replace(url.href);
+        // passes searchParams to the TableDisplay component
+        this.props.onSearchDataUpdate(searchParams);
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            inputValue: null,
             uzytkownicy:[],
             miejsca:[],
             rodzaje:[],
@@ -115,6 +81,7 @@ class NavBar extends React.Component{
         const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
         const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
         const rodzaje_fields = this.state.rodzaje.map(data => {return(<option value={data.id}>{data.rodzaj}</option>)});
+
         return (
             <div className="nav-bar" id='nav-bar'>
                 <button className="nav-bar--close" onClick={this.closeNavBar}>X</button>
