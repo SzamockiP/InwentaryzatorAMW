@@ -100,17 +100,25 @@ class NavBar extends React.Component{
 
         return (
             <div className="nav-bar" id='nav-bar'>
-                <button className="nav-bar--close" onClick={this.closeNavBar}>X</button>
+                <span class="nav-bar--close" onClick={this.closeNavBar}>&times;</span>
                 <br/>
 
+                <hr/>
+
+                <br/>
+                <br/>
                 <label htmlFor="nr_laborantaSearch">Numer Laboranta</label>
                 <select name={'nr_laboranta'} defaultValue="" id='nr_laborantaSearch'>
                     <option value="">Puste</option>
                     {laboranci_fields}
                 </select>
 
+                <hr/>
+
                 <label htmlFor="iloscSearch">Ilość</label>
                 <input type="number" id="iloscSearch"/>
+
+                <hr/>
 
                 <label htmlFor="miejsceSearch">Miejsce</label>
                 <select name={'miejsce'} defaultValue="" id='miejsceSearch'>
@@ -118,11 +126,17 @@ class NavBar extends React.Component{
                     {miejsca_fields}
                 </select>
 
+                <hr/>
+
                 <label htmlFor="nazwaSearch">Nazwa</label>
                 <input type="text" id="nazwaSearch"/>
 
+                <hr/>
+
                 <label htmlFor="nr_inwentarzowySearch">Numer Inwentarzowy</label>
                 <input type="text" id="nr_inwentarzowySearch"/>
+
+                <hr/>
 
                 <label htmlFor="uzytkownikSearch">Użytkownik</label>
                 <select name={'uzytkownik'} defaultValue="" id='uzytkownikSearch'>
@@ -130,11 +144,15 @@ class NavBar extends React.Component{
                     {uzytkownicy_fields}
                 </select>
 
+                <hr/>
+
                 <label htmlFor="rodzajSearch">Rodzaj</label>
                 <select name={'rodzaj'} defaultValue="" id='rodzajSearch'>
                     <option value="">Puste</option>
                     {rodzaje_fields}
                 </select>
+
+                <hr/>
 
                 <label htmlFor="typSearch">Typ</label>
                 <select name={'typ'} defaultValue="" id='typSearch'>
@@ -143,16 +161,23 @@ class NavBar extends React.Component{
                     <option value={false}>Bezstanowy</option>
                 </select>
 
+                <hr/>
+
                 <label htmlFor="wybrakowanieSearch">Wybrakowanie</label>
                 <select name={'wybrakowanie'} defaultValue="" id='wybrakowanieSearch'>
                     <option value="">Puste</option>
                     <option value={true}>Tak</option>
                     <option value={false}>Nie</option>
                 </select>
-
-                <button onClick={this.searchFilter}>Szukaj</button>
+                <br/>
+                <br/>
+                <hr/>
+                <br/>
+                <br/>
+                <button className="button" onClick={this.searchFilter}>Szukaj</button>
                 <button onClick={this.resetFilter}>Reset</button>
             </div>
+            
         );
     };
 };

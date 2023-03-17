@@ -22,7 +22,7 @@ function App() {
 			<MenuBar/>
             <TableDisplay searchParams={searchData}/>
 			<FooterBar/>
-			<button className="nav-bar--open" onClick={openNavBar}>O</button>
+			<button className="nav-bar--open" onClick={openNavBar}>Szukaj</button>
 			<NavBar onSearchDataUpdate={handleSearchDataUpdate}/>
         </div>
     );

@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 .footer-bar {
     height: fit-content;
     min-height: 20px;
     width: 100%;
-    background-color: blue;
+    background-color: navy;
 }
