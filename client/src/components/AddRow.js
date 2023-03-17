@@ -71,7 +71,7 @@ class TableRow extends React.Component{
         if(this.state.uzytkownik_id) newRowData.uzytkownik_id = this.state.uzytkownik_id;
         if(this.state.miejsce_id) newRowData.miejsce_id = this.state.miejsce_id;
         
-        
+        // if any field is empty, break this function
         if(!flag){
             alert("Trzeba wypełnić wszystkie pola aby dodać rekord.")
             return
