@@ -35,7 +35,7 @@ class TableDisplay extends React.Component{
             <table className="table-display">
                 <thead className='table-display__thead'>
                     {/* Header of data */}
-                    <tr>
+                    <tr className="table-row">
                         <td className='table-data'>Id</td>
                         <td className='table-data'>Numer Laboranta</td>
                         <td className='table-data'>Ilość</td>

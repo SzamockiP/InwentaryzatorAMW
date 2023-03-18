@@ -1,5 +1,4 @@
 
-
 .nav-bar {
     position: absolute;
     top: 0;
@@ -59,16 +58,15 @@
   .nav-bar--close:hover{
     color:#7f828a;
   }
-
+/*///////////////////////////////////*/
   input, select{
     border-radius: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     color: #333;
-    background-color: #fff;
   }
-  
+  /*///////////////////////////////////*/
   input:focus, select:focus {
     outline: none;
     box-shadow: 0 0 0px #aaa;
