@@ -13,7 +13,6 @@
 }
 
 .table-display__thead .table-data {
-    padding: 5px 10px 5px 10px;
     text-transform: capitalize;
     font-weight: bold;
 }
@@ -21,7 +20,7 @@
 .table-row {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(11, 1fr);
     grid-column-gap: 0;
     text-align: center;
 
@@ -38,6 +37,8 @@
     padding: 0;
 }
 
+
+
 .table-data input, .table-data select {
     width: 100%;
     margin: 0;
@@ -52,5 +53,89 @@
     margin: 0;
     padding: 5px 10px 5px 10px;
     border: none;
+}
+
+.buttonUsun-data {
+  width: 100%;
+  height: 100%;
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.buttonUsun-data:hover,
+.buttonUsun-data:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.buttonUsun-data:active {
+  opacity: .5;
+}
+
+.button-container {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    box-sizing: border-box; /* ensure that padding and border are included in total width and height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonDodaj-data {
+    width: 100%;
+    height: 100%;
+    background: #24e046;
+    border: 1px solid #24e046;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    margin: 0px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+}
+
+.buttonDodaj-data:hover,
+.buttonDodaj-data:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #24e046;
+}
+
+.buttonDodaj-data:active {
+    opacity: .5;
 }
 

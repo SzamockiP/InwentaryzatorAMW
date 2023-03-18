@@ -211,7 +211,9 @@ class TableRow extends React.Component{
                 </td>
 
                 <td className='table-data'>
-                    <button className="table-data__delete" onClick={this.handleRowAdd}>Dodaj</button>
+                    <div className="button-container">
+                        <button className="buttonDodaj-data" onClick={this.handleRowAdd}>Dodaj</button>
+                    </div>
                 </td>
             </tr>
         );

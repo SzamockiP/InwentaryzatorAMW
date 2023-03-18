@@ -141,7 +141,7 @@ class TableRow extends React.Component{
                 </td>
 
                 <td className='table-data'>
-                    <button className="table-data__delete" onClick={this.handleRowDelete}>Usuń</button>
+                    <button className="buttonUsun-data" onClick={this.handleRowDelete}>Usuń</button>
                 </td>
             </tr>
         );
