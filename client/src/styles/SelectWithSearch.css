@@ -1,0 +1,88 @@
+.select-with-search {
+    position: relative;
+    width: 100%;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  }
+  
+  .select-with-search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .select-with-search-header:hover {
+    background-color: gray;
+  }
+  
+  .select-with-search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: max-content;
+    background-color: white;
+    border: 1px solid gray;
+    border-top: none;
+    max-height: 200px;
+  }
+  
+  .select-with-search-dropdown input[type="text"] {
+    width: auto;
+    margin:0;
+    padding: 10px;
+    border: 1px solid black;
+  }
+  
+  .select-with-search-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 100px;
+    overflow-y: auto;
+  }
+  
+  .select-with-search-dropdown li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+  }
+  
+  .select-with-search-dropdown li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .select-with-search-dropdown button {
+    background-color: transparent;
+    border: none;
+    color: gray;
+    cursor: pointer;
+  }
+  
+  .select-with-search-add-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid gray;
+  }
+  
+  .select-with-search-add-option input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .select-with-search-add-option button {
+    background-color: navy;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .select-with-search-add-option button:hover {
+    background-color: #001f3f;
+  }
+  

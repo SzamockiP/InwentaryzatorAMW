@@ -1,7 +1,7 @@
 .menu-bar {
     display: flex;
     height: fit-content;
-    min-height: 50px;
+    min-height: 70px;
     width: 100%;
     background-color: navy;
 }

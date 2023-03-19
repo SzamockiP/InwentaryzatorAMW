@@ -23,7 +23,6 @@
     grid-template-columns: repeat(11, 1fr);
     grid-column-gap: 0;
     text-align: center;
-
 }
 
 .table-row:nth-child(even) {

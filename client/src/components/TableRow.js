@@ -26,6 +26,12 @@ class TableRow extends React.Component{
         });
     }
 
+    updateRow(){
+        Axios.put(`http://localhost:3001/dane_rekordy/update/${this.data.id}`, this.data).then((response) => {
+            this.setState({});
+        });
+    }
+
     constructor (props) {
         super(props);
         this.data = this.props.data;
@@ -53,28 +59,26 @@ class TableRow extends React.Component{
 
         // Here you can make db update query
         // place for query
+        this.updateRow();
     }    
 
     handleRowDelete = () => {
         this.setState({shouldRender:false})
         Axios.delete(`http://localhost:3001/dane_rekordy/delete/${this.data.id}`)
         .then(response => {
-          console.log(response.data);
-          // update the state or do something else
+            // update the state or do something else
         })
         .catch(error => {
-          console.error(error);
+            console.error(error);
         });
-
-
     }
+
 
     render () {
         // fetch here nr_laborantow, miejsca, uzytkownicy, rodzaje with data from db
         if (!this.state.shouldRender) {
             return null; // don't render anything if shouldRender is false
         }
-
         const laboranci_fields = this.state.laboranci.map(data => {return(<option value={data.id}>{data.nr_laboranta}</option>)});
         const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
         const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
@@ -93,25 +97,25 @@ class TableRow extends React.Component{
                 </td>
 
                 {/* number field */}
-                <td className='table-data'><input type='number' name={"ilosc"} onChange={this.handleInputChange} value={this.data.ilosc}/></td>
+                <td className='table-data'><input type='number' name={"ilosc"} min='1' max='9999' onChange={this.handleInputChange} value={this.data.ilosc}/></td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'miejsce'} onChange={this.handleInputChange} value={this.data.miejsce_id ? this.data.miejsce_id : "" } >
+                    <select name={'miejsce_id'} onChange={this.handleInputChange} value={this.data.miejsce_id ? this.data.miejsce_id : "" } >
                         <option value=""></option>
                         {miejsca_fields}
                     </select>
                 </td>
 
                 {/* text field */}
-                <td className='table-data'><input type="text"   name={'nazwa'} onChange={this.handleInputChange} value={this.data.nazwa}/></td>
+                <td className='table-data'><input type="text" name={'nazwa'} onChange={this.handleInputChange} value={this.data.nazwa}/></td>
 
                 {/* number field */}
-                <td className='table-data'><input type="number" name={'nr_inwentarzowy'} onChange={this.handleInputChange} value={this.data.nr_inwentarzowy}/></td>
+                <td className='table-data'><input type="text"  name={'nr_inwentarzowy'} onChange={this.handleInputChange} value={this.data.nr_inwentarzowy}/></td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'uzytkownik'} onChange={this.handleInputChange} value={this.data.uzytkownik_id ? this.data.uzytkownik_id : "" }>
+                    <select name={'uzytkownik_id'} onChange={this.handleInputChange} value={this.data.uzytkownik_id ? this.data.uzytkownik_id : "" }>
                         <option value=""></option>
                         {uzytkownicy_fields}
                     </select>
@@ -119,7 +123,7 @@ class TableRow extends React.Component{
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'rodzaj'} onChange={this.handleInputChange} value={this.data.rodzaj_id}>
+                    <select name={'rodzaj_id'} onChange={this.handleInputChange} value={this.data.rodzaj_id}>
                         {rodzaje_fields}
                     </select>
                 </td>
@@ -149,3 +153,6 @@ class TableRow extends React.Component{
 };
 
 export default TableRow;
+
+// TODO: zamień wszystkie selecty na SelectWithSearch, i dodaj update, jebie mnie to jak to chcesz zrobić
+// radź se frajerze, ide oglądać ssao o 10;17
