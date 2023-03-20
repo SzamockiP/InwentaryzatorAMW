@@ -5,10 +5,25 @@ import AddRow from './AddRow'
 import '../styles/TableDisplay.css';
 
 class TableDisplay extends React.Component{
+
+    getCountRekordy(){
+        Axios.get('http://localhost:3001/dane_rekordy/count_rekordy', {
+                params:{
+                    ...this.props.searchParams
+                } 
+            })
+            .then((response) => {
+                this.setState({countRekordy:response.data[0].countRekordy});
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     // update everything, i think it runs before rerender, so it doesnt trigger it again
     componentDidUpdate(prevProps) {
         if (prevProps.searchParams !== this.props.searchParams) {
-            Axios.get('http://localhost:3001/dane_rekordy', {
+            Axios.get('http://localhost:3001/dane_rekordy/data', {
                 params:{
                     ...this.props.searchParams,
                     page: this.state.page,
@@ -21,12 +36,15 @@ class TableDisplay extends React.Component{
             .catch((error) => {
                 console.error(error);
             });
+
+            // count returned pages
+            this.getCountRekordy();
         }
     }
 
     handleRowAddUpdate = () => {
         
-        Axios.get('http://localhost:3001/dane_rekordy', {
+        Axios.get('http://localhost:3001/dane_rekordy/data', {
                 params:{
                     ...this.props.searchParams,
                     page: this.state.page,
@@ -41,6 +59,9 @@ class TableDisplay extends React.Component{
             });
         
         this.setState({test:null});
+
+        // count returned pages
+        this.getCountRekordy();
     }
 
     constructor (props) {
@@ -53,7 +74,7 @@ class TableDisplay extends React.Component{
         };
 
         // get data from table rekordy
-        Axios.get('http://localhost:3001/dane_rekordy', {
+        Axios.get('http://localhost:3001/dane_rekordy/data', {
                 params:{
                     ...this.props.searchParams,
                     page: this.state.page,
@@ -66,14 +87,20 @@ class TableDisplay extends React.Component{
             .catch((error) => {
                 console.error(error);
             });
+        
+        // count returned pages
+        this.getCountRekordy();
     }
 
 
     render() {
+        // console.log(this.state.count)
         // creates list of <TableRow/> containing data from props.rows
         const rows = this.state.resRows.map(row => { return (<TableRow key={row.id} data={row}/>) });
 
+        const max_pages = Math.ceil((this.state.countRekordy+0.01)/30);
         return (
+            <>
             <table className="table-display">
                 <thead className='table-display__thead'>
                     {/* Header of data */}
@@ -96,10 +123,11 @@ class TableDisplay extends React.Component{
                     {/* Rows of data */}
                     {rows}
                 </tbody>
-                <tfoot>
-                    {/* Add here an empty row to edit */}
-                </tfoot>
             </table>
+            <p>{max_pages}</p>
+
+            
+            </>
         );
     }
     

@@ -1,28 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Axios from 'axios';
+import SelectWithSearch from './SelectWithSearch';
 
 class TableRow extends React.Component{
     getUzytkownicy(){
-        Axios.get('http://localhost:3001/dane_uzytkownicy').then((response) => {
-            this.setState({uzytkownicy:response.data});
+        Axios.get('http://localhost:3001/dane_uzytkownicy')
+        .then((response) => {
+            this.setState({uzytkownicy:response.data.map(data => {return({value:data.id, label:data.imie + ' ' + data.nazwisko})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
     getMiejsca(){
-        Axios.get('http://localhost:3001/dane_miejsca').then((response) => {
-            this.setState({miejsca:response.data});
+        Axios.get('http://localhost:3001/dane_miejsca')
+        .then((response) => {
+            this.setState({miejsca:response.data.map(data => {return({value:data.id, label:data.nr_miejsca})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
     getLaboranci(){
-        Axios.get('http://localhost:3001/dane_laboranci').then((response) => {
-            this.setState({laboranci:response.data});
+        Axios.get('http://localhost:3001/dane_laboranci')
+        .then((response) => {
+            this.setState({laboranci:response.data.map(data => {return({value:data.id, label:data.nr_laboranta})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
     getRodzaje(){
         Axios.get('http://localhost:3001/dane_rodzaje').then((response) => {
-            this.setState({rodzaje:response.data});
+            this.setState({rodzaje:response.data.map(data => {return({value:data.id, label:data.rodzaj})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
@@ -76,6 +88,7 @@ class TableRow extends React.Component{
             alert("Trzeba wypełnić wszystkie pola aby dodać rekord.")
             return
         }
+
         // rerender whole component, so it has empty fields
         this.setState({
             laborant_id:undefined,
@@ -91,7 +104,6 @@ class TableRow extends React.Component{
 
         Axios.post(`http://localhost:3001/dane_rekordy/create`, {...newRowData})
             .then(response => {
-                console.log(response.data);
                 // update TableDisplay
                 this.props.onRowAdd({});
             })
@@ -101,32 +113,33 @@ class TableRow extends React.Component{
     }
 
     render () {
-        // fetch here nr_laborantow, miejsca, uzytkownicy, rodzaje with data from db
-        const laboranci_fields = this.state.laboranci.map(data => {return(<option value={data.id}>{data.nr_laboranta}</option>)});
-        const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
-        const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
-        const rodzaje_fields = this.state.rodzaje.map(data => {return(<option value={data.id}>{data.rodzaj}</option>)});
-
+        // (event) => this.setState({laborant_id:event.target.value})
         return (
             <tr className="table-row">
                 {/* unchangable id field */}
+                {/* <td className='table-data'>Nowy Rekord</td> */}
                 <td className='table-data'></td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'nr_laboranta'} 
+                    {/* <select name={'nr_laboranta'} 
                         defaultValue="" 
                         onChange={(event) => this.setState({ laborant_id: event.target.value })} 
                         value={this.state.laborant_id ? this.state.laborant_id : ""}
                     >
                         <option value=""></option>
-                        {laboranci_fields}
-                    </select>
+                        {this.state.laboranci}
+                    </select> */}
+                    <SelectWithSearch 
+                        type="laboranci" 
+                        onChange={(newValue) => {this.setState({laborant_id:newValue})}}
+                        value={this.state.laborant_id}
+                    />
                 </td>
 
                 {/* number field */}
                 <td className='table-data'>
-                    <input type='number' name={"ilosc"} 
+                    <input type='number' min='1' max='9999' name={"ilosc"} 
                         onChange={(event) => this.setState({ ilosc: event.target.value })}
                         value={this.state.ilosc ? this.state.ilosc : ""}
                     />
@@ -134,14 +147,11 @@ class TableRow extends React.Component{
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'miejsce'} 
-                        defaultValue="" 
-                        onChange={(event) => this.setState({ miejsce_id: event.target.value })}
-                        value={this.state.miejsce_id ? this.state.miejsce_id : ""}
-                    >
-                        <option value=""></option>
-                        {miejsca_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type="miejsca"  
+                        onChange={(newValue) => {this.setState({miejsce_id:newValue})}}
+                        value={this.state.miejsce_id}
+                    />
                 </td>
 
                 {/* text field */}
@@ -154,7 +164,7 @@ class TableRow extends React.Component{
 
                 {/* number field */}
                 <td className='table-data'>
-                    <input type="number" name={'nr_inwentarzowy'} 
+                    <input type="text" name={'nr_inwentarzowy'} 
                         onChange={(event) => this.setState({ nr_inwentarzowy: event.target.value })}
                         value={this.state.nr_inwentarzowy ? this.state.nr_inwentarzowy : ""}
                     />
@@ -162,26 +172,20 @@ class TableRow extends React.Component{
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'uzytkownik'} 
-                        defaultValue="" 
-                        onChange={(event) => this.setState({ uzytkownik_id: event.target.value })}
-                        value={this.state.uzytkownik_id ? this.state.uzytkownik_id : ""}
-                    >
-                        <option value=""></option>
-                        {uzytkownicy_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type="uzytkownicy" 
+                        onChange={(newValue) => {this.setState({uzytkownik_id:newValue})}}
+                        value={this.state.uzytkownik_id}
+                    />
                 </td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'rodzaj'} 
-                        defaultValue="" 
-                        onChange={(event) => this.setState({ rodzaj_id: event.target.value })}
-                        value={this.state.rodzaj_id ? this.state.rodzaj_id : ""}
-                    > 
-                        <option value=""></option>
-                        {rodzaje_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type="rodzaje" 
+                        onChange={(newValue) => {this.setState({rodzaj_id:newValue})}}
+                        value={this.state.rodzaj_id}
+                    />
                 </td>
 
                 {/* selectable bool field */}
