@@ -215,7 +215,7 @@ class SelectWithSearch extends React.Component {
 						{/* adding part */}
 						<div className="select-with-search-add-option">
 							<input type="text" placeholder="Dodaj nowy" onChange={this.handleAddInputChange} />
-							<button onClick={this.handleAddOption}>Add</button>
+							<button onClick={this.handleAddOption}>Dodaj</button>
 						</div>
 					</div>
 				)}

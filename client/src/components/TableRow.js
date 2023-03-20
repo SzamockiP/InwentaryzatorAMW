@@ -87,7 +87,7 @@ class TableRow extends React.Component{
         return (
             <tr className="table-row">
                 {/* unchangable id field */}
-                <td className='table-data'>{this.data.id}</td>
+                <td className='table-data'><p className='table-data-id'>{this.data.id}</p></td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
