@@ -25,7 +25,8 @@ class TableDisplay extends React.Component{
                 params:{
                     ...this.props.searchParams,
                     page: this.state.page,
-                    order: this.state.orderBy
+                    order: this.state.orderBy,
+                    orderAsc: this.state.orderAsc
                 } 
             })
             .then((response) => {
@@ -80,7 +81,8 @@ class TableDisplay extends React.Component{
         this.state = {
             resRows:[],
             page:1,
-            orderBy:null
+            orderBy:null,
+            orderAsc:null
         };
 
         // get data from table rekordy
@@ -91,24 +93,34 @@ class TableDisplay extends React.Component{
     }
 
 
-    handleSortOrderChange = (event) => {
-
-        this.setState({orderBy:event.target.name,orderASC:true});
-        
-
-
-
-
-
-
-
-
+    handleSortOrderChange = (name) => {
+        const currentOrderBy = this.state.orderBy
+        const currentOrderAsc = this.state.orderAsc
+        // change orderAsc
+        if(name === currentOrderBy){
+            if(currentOrderAsc === true) 
+                this.setState({orderAsc:false})
+            else if(currentOrderAsc === false)
+                this.setState({orderAsc:null})
+            else 
+                this.setState({orderAsc:true})
+        }
+        else 
+            this.setState({orderBy:name, orderAsc:true})
     }
 
     render() {
         // console.log(this.state.count)
         // creates list of <TableRow/> containing data from props.rows
         const rows = this.state.resRows.map(row => { return (<TableRow key={row.id} data={row}/>) });
+        const currentOrderBy = this.state.orderBy
+        let orderText;
+        if(this.state.orderAsc === true)
+            orderText='⬆';
+        else if(this.state.orderAsc === false)
+            orderText='⬇';
+        else 
+            orderText='';
 
         return (
             <>
@@ -116,16 +128,36 @@ class TableDisplay extends React.Component{
                 <thead className='table-display__thead'>
                     {/* Header of data */}
                     <tr className="table-row">
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'id'}>Id</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'laborant_id'}>Numer Laboranta</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'ilosc'}>Ilość</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'miejsce_id'}>Miejsce</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'nazwa'}>Nazwa</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'nr_inwentarzowy'}>Numer Inwentarzowy</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'uzytkownik_id'}>Użytkownik</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'rodzaj_id'}>Rodzaj</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'typ'}>Typ</td>
-                        <td className='table-data' onClick={this.handleSortOrderChange} name={'wybrakowanie'}>Wybrakowanie</td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('id')}>
+                            Id {currentOrderBy === 'id' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('laborant_id')}>
+                            Numer Laboranta {currentOrderBy === 'laborant_id' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('ilosc')}>
+                            Ilość {currentOrderBy === 'ilosc' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('miejsce_id')}>
+                            Miejsce {currentOrderBy === 'miejsce_id' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('nazwa')}>
+                            Nazwa {currentOrderBy === 'nazwa' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('nr_inwentarzowy')}>
+                            Numer Inwentarzowy {currentOrderBy === 'nr_inwentarzowy' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('uzytkownik_id')}>
+                            Użytkownik {currentOrderBy === 'uzytkownik_id' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('rodzaj_id')}>
+                            Rodzaj {currentOrderBy === 'rodzaj_id' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('typ')}>
+                            Typ {currentOrderBy === 'typ' ? orderText:''}
+                        </td>
+                        <td className='table-data' onClick={()=>this.handleSortOrderChange('wybrakowanie')}>
+                            Wybrakowanie {currentOrderBy === 'wybrakowanie' ? orderText:''}
+                        </td>
                         <td className='table-data'>Funkcje</td>
                     </tr>
                     <AddRow onRowAdd={this.handleRowAddUpdate}/>

@@ -106,13 +106,15 @@ class SelectWithSearch extends React.Component {
 		const newOptions = this.state.options.filter(obj => {
 			return obj.value !== optionToRemove.value && obj.label !== optionToRemove.label;
 		});
-		this.setState({options:newOptions})
+		this.setState({options:newOptions});
+		
 
 		// update db here
 		Axios.delete(`http://localhost:3001/dane_${this.state.type}/delete/${optionToRemove.value}`)
             .then(response => {
 				// pull from db options
 				this.getOptions();
+
             })
             .catch(error => {
                 console.error(error);
@@ -131,6 +133,7 @@ class SelectWithSearch extends React.Component {
   	handleDropdownToggle(){
     	this.setState((prevState) => {return{isOpen: !prevState.isOpen}});
 		// this.setState({isOpen:true})
+		this.getOptions();
 		
   	}
 
@@ -254,8 +257,9 @@ class SelectWithSearch extends React.Component {
 						<ul>
 							<li value='' onClick={() => this.handleOptionSelect({value:'',label:'Nie wybrano'})}>Nie wybrano</li>
 							{this.state.options.map((option) => (
+								//FIXME:change something about displaying this button, it must be separetly from li beacause two events trigger
 								<li key={option.value} value={option.value} onClick={() => this.handleOptionSelect(option)}>
-									{option.label}<span onClick={() => this.handleOptionDelete(option)}>X</span>
+									{option.label}<button onClick={() => this.handleOptionDelete(option)}>X</button>
 								</li>
 							))}
 						</ul>
