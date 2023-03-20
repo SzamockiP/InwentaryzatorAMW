@@ -9,30 +9,77 @@ class SelectWithSearch extends React.Component {
         Axios.get(`http://localhost:3001/dane_${this.state.type}`).then((response) => {
 			switch(this.state.type){
 				case 'laboranci': 
-				this.setState({options:response.data.map(
-					(data) => {return({value:data.id, label:data.nr_laboranta})}
-				)});
+					this.setState({options:response.data.map(
+						(data) => {return({value:data.id, label:data.nr_laboranta})}
+					)});
+					if(this.props.value){
+						const findData = response.data.find(option => option.id === this.props.value)
+						this.setState({selectedOption:
+							{
+								value:findData.id,
+								label:findData.nr_laboranta
+							}	
+						})
+					}
 				break;
+	
+
+				case 'miejsca': 
+					this.setState({options:response.data.map(
+						(data) => {return({value:data.id, label:data.nr_miejsca})}
+					)});
+					if(this.props.value){
+						const findData = response.data.find(option => option.id === this.props.value)
+						this.setState({selectedOption:
+							{
+								value:findData.id,
+								label:findData.nr_miejsca
+							}	
+						})
+					}
+				break;
+
+
+				case 'uzytkownicy': 
+					this.setState({options:response.data.map(
+						(data) => {return({value:data.id, label:data.imie + ' ' + data.nazwisko})}
+					)});
+					if(this.props.value){
+						const findData = response.data.find(option => option.id === this.props.value)
+						this.setState({selectedOption:
+							{
+								value:findData.id,
+								label:findData.imie + ' ' + findData.nazwisko
+							}	
+						})
+					}
+				break;
+
+
+				case 'rodzaje':
+					this.setState({options:response.data.map(
+						(data) => {return({value:data.id, label:data.rodzaj})}
+					)});
+
+					if(this.props.value){
+						const findData = response.data.find(option => option.id === this.props.value)
+						this.setState({selectedOption:
+							{
+								value:findData.id,
+								label:findData.rodzaj
+							}	
+						})
+					}
+				break;
+
 				
-				case 'miejsca': this.setState({options:response.data.map(
-					(data) => {return({value:data.id, label:data.nr_miejsca})}
-				)});
+				default:
 				break;
-
-				case 'uzytkownicy': this.setState({options:response.data.map(
-					(data) => {return({value:data.id, label:data.imie + ' ' + data.nazwisko})}
-				)});
-				break;
-
-				case 'rodzaje': this.setState({options:response.data.map(
-					(data) => {return({value:data.id, label:data.rodzaj})}
-				)});
-				break;
-			}
-        });
+			}	
+        }).catch(error => {
+			console.error(error);
+		});
     }
-
-
 
   	constructor(props) {
 		super(props);
@@ -56,7 +103,6 @@ class SelectWithSearch extends React.Component {
 
   	// handler for selectiong options
   	handleOptionDelete = (optionToRemove) => {
-		console.log("deleted row: ",optionToRemove.value, optionToRemove.label)
 		const newOptions = this.state.options.filter(obj => {
 			return obj.value !== optionToRemove.value && obj.label !== optionToRemove.label;
 		});
@@ -65,8 +111,6 @@ class SelectWithSearch extends React.Component {
 		// update db here
 		Axios.delete(`http://localhost:3001/dane_${this.state.type}/delete/${optionToRemove.value}`)
             .then(response => {
-                console.log(response.data);
-
 				// pull from db options
 				this.getOptions();
             })
@@ -111,22 +155,29 @@ class SelectWithSearch extends React.Component {
 		switch(this.state.type){
 			case 'laboranci': 
 				dataToInsert = {nr_laboranta:addValue}
-				break;
+			break;
 				
+
 			case 'miejsca': 
 				dataToInsert = {nr_miejsca:addValue}
-				break;
+			break;
+
 
 			case 'uzytkownicy': 
 				if(addValue.split(' ').length() > 1)
-						dataToInsert = {imie:addValue.split(' ')[0], nazwisko:addValue.split(' ')[1]}
+					dataToInsert = {imie:addValue.split(' ')[0], nazwisko:addValue.split(' ')[1]}
 				else
 					return
-				break;
+			break;
+
 
 			case 'rodzaje': 
 				dataToInsert = {rodzaj:addValue}
-				break;
+			break;
+
+
+			default:
+			break;
 		}
 
 		this.setState({options:[...this.state.options, newOption]});
@@ -134,10 +185,8 @@ class SelectWithSearch extends React.Component {
 		// add new option to the db
 		Axios.post(`http://localhost:3001/dane_${this.state.type}/create`, dataToInsert)
             .then(response => {
-                console.log(response.data);
                 // update SelectWithSearch
 				this.setState({addValue:""});
-
 				// pull from db options
 				this.getOptions();
             })
@@ -174,13 +223,11 @@ class SelectWithSearch extends React.Component {
 		if(prevProps.value !== this.props.value  && this.props.value === undefined){
 			// this.setState({selectedValue:this.props.value});
 			this.setState({selectedOption:{value:this.props.value, label:"Nie wybrano"}})
-			console.log("updated value to:" , this.props.value)
 		}
 	}
 	
 	render() {
 		const { selectedOption, searchValue } = this.state;
-		
 		// takes value from parent and changes things i guess
 		return (
 			<div className="select-with-search" ref={(ref) => { this.dropdownRef = ref; }}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Axios from 'axios';
 import SelectWithSearch from './SelectWithSearch';
 
@@ -7,6 +7,8 @@ class TableRow extends React.Component{
         Axios.get('http://localhost:3001/dane_uzytkownicy')
         .then((response) => {
             this.setState({uzytkownicy:response.data.map(data => {return({value:data.id, label:data.imie + ' ' + data.nazwisko})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
@@ -14,6 +16,8 @@ class TableRow extends React.Component{
         Axios.get('http://localhost:3001/dane_miejsca')
         .then((response) => {
             this.setState({miejsca:response.data.map(data => {return({value:data.id, label:data.nr_miejsca})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
@@ -21,12 +25,16 @@ class TableRow extends React.Component{
         Axios.get('http://localhost:3001/dane_laboranci')
         .then((response) => {
             this.setState({laboranci:response.data.map(data => {return({value:data.id, label:data.nr_laboranta})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
     getRodzaje(){
         Axios.get('http://localhost:3001/dane_rodzaje').then((response) => {
             this.setState({rodzaje:response.data.map(data => {return({value:data.id, label:data.rodzaj})})});
+        }).catch(error => {
+            console.error(error);
         });
     }
 
