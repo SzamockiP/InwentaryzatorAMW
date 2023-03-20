@@ -136,20 +136,20 @@ class SelectWithSearch extends React.Component {
 
   	// search input change
   	handleSearchInputChange(event) {
-    	const value = event.target;
+    	const value = event.target.value;
    	 	this.setState({ searchValue: value });
   	}
 
   	// input for adding new options
   	handleAddInputChange = (event) => {
-		const { value } = event.target;
+		const value = event.target.value;
     	this.setState({ addValue: value });
   	}
 
   	// button handler for adding new options
   	handleAddOption = () => {
 		const addValue = this.state.addValue;
-    	const newOption = { value: addValue.toLowerCase(), label: addValue };
+    	const newOption = { value: addValue, label: addValue };
     	
 		let dataToInsert;
 		switch(this.state.type){
@@ -164,7 +164,7 @@ class SelectWithSearch extends React.Component {
 
 
 			case 'uzytkownicy': 
-				if(addValue.split(' ').length() > 1)
+				if(addValue.split(' ').length > 1)
 					dataToInsert = {imie:addValue.split(' ')[0], nazwisko:addValue.split(' ')[1]}
 				else
 					return
@@ -177,9 +177,10 @@ class SelectWithSearch extends React.Component {
 
 
 			default:
-			break;
+				return
 		}
 
+		// change this to pull from db
 		this.setState({options:[...this.state.options, newOption]});
 
 		// add new option to the db

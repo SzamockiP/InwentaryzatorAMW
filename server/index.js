@@ -193,8 +193,8 @@ app.get('/dane_rekordy/data', (req, res)=>{
     if(req.query.wybrakowanie) conditions.push(`wybrakowanie = ${req.query.wybrakowanie}`);
 
     // if there are conditions add them, else don't
-    if(conditions.length > 0) query += " WHERE " + conditions.join(" AND ") + ` LIMIT ${(req.query.page-1)*30},${req.query.page*30}`;
-    else query += ` LIMIT ${(req.query.page-1)*30},${req.query.page*30}`;
+    if(conditions.length > 0) query += " WHERE " + conditions.join(" AND ") + ` LIMIT ${req.query.page*30} OFFSET ${(req.query.page-1)*30}`;
+    else query += ` LIMIT ${req.query.page*30} OFFSET ${(req.query.page-1)*30}`;
 
     // return query response from database
     db.query(query , (err, result)=> {

@@ -20,7 +20,9 @@
   }
   
   .select-with-search-dropdown {
-    display: flex;
+
+    display: absolute;
+    z-index: 3;
     flex-direction: column;
     padding: 10px;
     position: absolute;
