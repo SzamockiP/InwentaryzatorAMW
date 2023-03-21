@@ -254,7 +254,7 @@ class SelectWithSearch extends React.Component {
 							<li value='' onClick={() => this.handleOptionSelect({value:'',label:'Nie wybrano'})}>Nie wybrano</li>
 							{this.state.options.map((option) => (
 								<li key={option.value} value={option.value} onClick={() => this.handleOptionSelect(option)}>
-									{option.label}<span onClick={() => this.handleOptionDelete(option)}>X</span>
+									{option.label}<button onClick={() => this.handleOptionDelete(option)}>X</button>
 								</li>
 							))}
 						</ul>

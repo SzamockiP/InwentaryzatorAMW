@@ -19,7 +19,7 @@
 
 .nav-bar--open{
     position: absolute;
-    top: 20px;
+    top: 14px;
     right: 20px;
     outline: 0;
     border: 0;
@@ -43,19 +43,6 @@
 .nav-bar * {
     margin: 5px 30px 0 15px;
 }
-
-.button{
-    background-color: white;
-    color: black;
-    border: 2px solid #555555;
-    margin-top: 20px;
-    border-radius: 12px;
-}
-
-.button:hover {
-    background-color: #353840;
-    color: white;
-  }
 
   .nav-bar--close {
     font-size: 45px;
@@ -90,4 +77,45 @@
 
   label{
     color: white;
+  }
+
+  .filtr-text{
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  .button-search{
+    align-items: center;
+    width: 80%;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid rgb(255, 251, 0);
+    border-radius: 2svi;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  .button-search:hover {
+    background: #0c497a;
+  }
+
+  .button-reset{
+    align-items: center;
+    width: 80%;
+    background: #c4c719;
+    color: white;
+    font-size: 17px;
+    border: 1px solid #2196F3;
+    border-radius: 2svi;
+    border-left: none;
+    cursor: pointer;
+    
+  }
+
+  .button-reset:hover {
+    background: #8e9103;
   }

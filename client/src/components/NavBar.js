@@ -103,6 +103,8 @@ class NavBar extends React.Component{
                 <span className="nav-bar--close" onClick={this.closeNavBar}>&times;</span>
                 <br/>
 
+                <p className="filtr-text">Filtry</p>
+                <br/>
                 <hr/>
 
                 <br/>
@@ -174,8 +176,8 @@ class NavBar extends React.Component{
                 <hr/>
                 <br/>
                 <br/>
-                <button className="button" onClick={this.searchFilter}>Szukaj</button>
-                <button className="button" onClick={this.resetFilter}>Reset</button>
+                <button className="button-search" onClick={this.searchFilter}>Szukaj</button>
+                <button className="button-reset" onClick={this.resetFilter}>Reset</button>
             </div>
             
         );
