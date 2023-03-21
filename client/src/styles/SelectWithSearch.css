@@ -20,14 +20,13 @@
   }
   
   .select-with-search-dropdown {
-
     display: absolute;
-    z-index: 3;
     flex-direction: column;
     padding: 10px;
     position: absolute;
     top: 100%;
     left: 0;
+    z-index: 1;
     background-color: white;
     border: 1px solid gray;
     max-height: 250px;

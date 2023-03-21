@@ -32,6 +32,7 @@
     /* changes border color of table */
     border: 1px solid black;
     min-width: 100px;
+    padding: 0;
 }
 
 
@@ -40,7 +41,7 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 5px;
+    padding: 0px;
     border: none;
     background-color: transparent;
 }
@@ -50,36 +51,26 @@
 }
 
 .buttonUsun-data {
-  width: 100%;
-  height: 100%;
-  background: #FF4742;
-  border: 1px solid #FF4742;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 16px;
-  min-height: 40px;
-  outline: 0;
-  padding: 12px 14px;
-  text-align: center;
-  text-rendering: geometricprecision;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
 }
 
 .buttonUsun-data:hover,
 .buttonUsun-data:active {
-  background-color: initial;
+  background-color: #7c2522;
   background-position: 0 0;
-  color: #FF4742;
+  color: #FFFFFF;
 }
 
 .buttonUsun-data:active {
@@ -110,23 +101,13 @@
     font-weight: 800;
     line-height: 16px;
     min-height: 40px;
-    outline: 0;
-    padding: 12px 14px;
-    margin: 0px;
-    text-align: center;
-    text-rendering: geometricprecision;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: middle;
 }
 
 .buttonDodaj-data:hover,
 .buttonDodaj-data:active {
-    background-color: initial;
+    background-color: #176b26;
     background-position: 0 0;
-    color: #24e046;
+    color: #FFFFFF;
 }
 
 .buttonDodaj-data:active {
