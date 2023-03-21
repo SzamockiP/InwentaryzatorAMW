@@ -177,33 +177,116 @@ app.delete('/dane_laboranci/delete/:id', (req,res)=>{
 
 // get data from table rekordy
 app.get('/dane_rekordy/data', (req, res)=>{
-    let query = `SELECT * FROM rekordy`;
+    let query = 'SELECT re.* FROM rekordy AS re '+
+				'LEFT JOIN laboranci AS l on l.id = re.laborant_id '+
+				'LEFT JOIN miejsca AS m on m.id = re.miejsce_id '+
+				'LEFT JOIN rodzaje AS r on r.id = re.rodzaj_id '+
+				'LEFT JOIN uzytkownicy AS u on u.id = re.uzytkownik_id ' ;
 
+	// let query = 'SELECT re.* FROM rekordy AS re '
     let conditions = [];
 
-    // add conditions which are filled
-    if(req.query.laborant_id) conditions.push(`laborant_id = ${req.query.laborant_id} `);
-    if(req.query.ilosc) conditions.push(`ilosc = ${req.query.ilosc}`);
-    if(req.query.miejsce_id) conditions.push(`miejsce_id = ${req.query.miejsce_id}`);
-    if(req.query.nazwa) conditions.push(`nazwa LIKE '%${req.query.nazwa}%'`);
-    if(req.query.nr_inwentarzowy) conditions.push(`nr_inwentarzowy = ${req.query.nr_inwentarzowy}`);
-    if(req.query.uzytkownik_id) conditions.push(`uzytkownik_id = ${req.query.uzytkownik_id}`);
-    if(req.query.rodzaj_id) conditions.push(`rodzaj_id = ${req.query.rodzaj_id}`);
-    if(req.query.typ) conditions.push(`typ = ${req.query.typ}`);
-    if(req.query.wybrakowanie) conditions.push(`wybrakowanie = ${req.query.wybrakowanie}`);
+	// add conditions which are filled
+    if(req.query.laborant_id) conditions.push(`re.laborant_id = ${req.query.laborant_id} `);
+    if(req.query.ilosc) conditions.push(`re.ilosc = ${req.query.ilosc}`);
+    if(req.query.miejsce_id) conditions.push(`re.miejsce_id = ${req.query.miejsce_id}`);
+    if(req.query.nazwa) conditions.push(`re.nazwa LIKE '%${req.query.nazwa}%'`);
+    if(req.query.nr_inwentarzowy) conditions.push(`re.nr_inwentarzowy = ${req.query.nr_inwentarzowy}`);
+    if(req.query.uzytkownik_id) conditions.push(`re.uzytkownik_id = ${req.query.uzytkownik_id}`);
+    if(req.query.rodzaj_id) conditions.push(`re.rodzaj_id = ${req.query.rodzaj_id}`);
+    if(req.query.typ) conditions.push(`re.typ = ${req.query.typ}`);
+    if(req.query.wybrakowanie) conditions.push(`re.wybrakowanie = ${req.query.wybrakowanie}`);
 
-    // if there are conditions add them, else don't
-    if(conditions.length > 0) query += " WHERE " + conditions.join(" AND ") + ` LIMIT ${req.query.page*30} OFFSET ${(req.query.page-1)*30}`;
-    else query += ` LIMIT ${req.query.page*30} OFFSET ${(req.query.page-1)*30}`;
+	// if there are conditions add them, else don't
+    if(conditions.length > 0) query += " WHERE " + conditions.join(" AND ");
+
+	// set order of displaying
+	if(req.query.order){
+        switch(req.query.orderAsc){
+          	case 'true':
+				query += ` ORDER BY ${req.query.order} ASC`
+          	break;
+
+          	case 'false':
+				query += ` ORDER BY ${req.query.order} DESC`
+          	break;
+
+          	default:
+          	break;
+        }
+    }
+
+    // add limit to the query
+	query += ` LIMIT ${req.query.page*30} OFFSET ${(req.query.page-1)*30}`;
 
     // return query response from database
     db.query(query , (err, result)=> {
         if(err)
-            console.error(err)
-        else``
+			console.error(err)
+        else{
             res.send(result)
+		}
     });
 })
+
+
+
+
+app.get('/dane_rekordy/print_table', (req, res)=>{
+    let query = 'SELECT re.id, l.nr_laboranta, re.ilosc, m.nr_miejsca, re.nazwa, re.nr_inwentarzowy, u.imie, u.nazwisko, r.rodzaj, re.typ, re.wybrakowanie '+
+				'FROM rekordy AS re '+
+				'LEFT JOIN laboranci AS l on l.id = re.laborant_id '+
+				'LEFT JOIN miejsca AS m on m.id = re.miejsce_id '+
+				'LEFT JOIN rodzaje AS r on r.id = re.rodzaj_id '+
+				'LEFT JOIN uzytkownicy AS u on u.id = re.uzytkownik_id ' ;
+
+	// let query = 'SELECT re.* FROM rekordy AS re '
+    let conditions = [];
+
+	// add conditions which are filled
+    if(req.query.laborant_id) conditions.push(`re.laborant_id = ${req.query.laborant_id} `);
+    if(req.query.ilosc) conditions.push(`re.ilosc = ${req.query.ilosc}`);
+    if(req.query.miejsce_id) conditions.push(`re.miejsce_id = ${req.query.miejsce_id}`);
+    if(req.query.nazwa) conditions.push(`re.nazwa LIKE '%${req.query.nazwa}%'`);
+    if(req.query.nr_inwentarzowy) conditions.push(`re.nr_inwentarzowy = ${req.query.nr_inwentarzowy}`);
+    if(req.query.uzytkownik_id) conditions.push(`re.uzytkownik_id = ${req.query.uzytkownik_id}`);
+    if(req.query.rodzaj_id) conditions.push(`re.rodzaj_id = ${req.query.rodzaj_id}`);
+    if(req.query.typ) conditions.push(`re.typ = ${req.query.typ}`);
+    if(req.query.wybrakowanie) conditions.push(`re.wybrakowanie = ${req.query.wybrakowanie}`);
+
+	// if there are conditions add them, else don't
+    if(conditions.length > 0) query += " WHERE " + conditions.join(" AND ");
+
+	// set order of displaying
+	if(req.query.order){
+        switch(req.query.orderAsc){
+          	case 'true':
+				query += ` ORDER BY ${req.query.order} ASC`
+          	break;
+
+          	case 'false':
+				query += ` ORDER BY ${req.query.order} DESC`
+          	break;
+
+          	default:
+          	break;
+        }
+    }
+
+    // add limit to the query
+	query += ` LIMIT ${req.query.page*30} OFFSET ${(req.query.page-1)*30}`;
+
+    // return query response from database
+    db.query(query , (err, result)=> {
+        if(err)
+			console.error(err)
+        else{
+            res.send(result)
+		}
+    });
+})
+
+
 
 // return count of rows in rekordy
 app.get('/dane_rekordy/count_rekordy', (req,res)=>{

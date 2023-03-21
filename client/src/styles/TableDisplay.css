@@ -114,3 +114,35 @@
     opacity: .5;
 }
 
+.pagination-container {
+    display: flex;
+    gap: 5px;
+    height: 40px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-container button {
+    height: 33px;
+    width: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: navy;
+    color:white;
+    border:none;
+}
+
+.pagination-container button:hover {
+    background-color: lightslategray;
+}
+.pagination-container p {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: navy;
+    color:white;
+    text-align: center;
+    padding-top: 3px;
+}

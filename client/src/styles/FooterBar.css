@@ -5,8 +5,16 @@
 }
 
 .footer-bar {
-    height: fit-content;
-    min-height: 20px;
     width: 100%;
     background-color: navy;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-bar p {
+    margin: 0;
+    font-size: small;
+    color: gray;
 }

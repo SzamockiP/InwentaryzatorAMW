@@ -29,6 +29,11 @@ class NavBar extends React.Component{
 
     closeNavBar() {
         document.getElementById('nav-bar').style.width = '0px'
+
+        this.getUzytkownicy();
+        this.getMiejsca();
+        this.getLaboranci();
+        this.getRodzaje();
     }
 
     // Adds filters to the url
@@ -74,6 +79,10 @@ class NavBar extends React.Component{
         this.props.onSearchDataUpdate({});
     }
 
+    handlePrintLink(){
+        document.getElementById('tablePrinterLink').click();
+    }
+
     constructor(props) {
         super(props);
 
@@ -101,13 +110,9 @@ class NavBar extends React.Component{
         return (
             <div className="nav-bar" id='nav-bar'>
                 <span className="nav-bar--close" onClick={this.closeNavBar}>&times;</span>
-                <br/>
-
                 <p className="filtr-text">Filtry</p>
-                <br/>
                 <hr/>
 
-                <br/>
                 <br/>
                 <label htmlFor="nr_laborantaSearch">Numer Laboranta</label>
                 <select name={'nr_laboranta'} defaultValue="" id='nr_laborantaSearch'>
@@ -171,13 +176,12 @@ class NavBar extends React.Component{
                     <option value={true}>Tak</option>
                     <option value={false}>Nie</option>
                 </select>
-                <br/>
-                <br/>
                 <hr/>
                 <br/>
-                <br/>
                 <button className="button-search" onClick={this.searchFilter}>Szukaj</button>
+                <br />
                 <button className="button-reset" onClick={this.resetFilter}>Reset</button>
+                <button className="button-reset" onClick={this.handlePrintLink}>Drukuj</button>
             </div>
             
         );

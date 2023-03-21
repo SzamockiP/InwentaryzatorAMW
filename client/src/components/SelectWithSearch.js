@@ -77,7 +77,8 @@ class SelectWithSearch extends React.Component {
 				break;
 			}	
         }).catch(error => {
-			console.error(error);
+			// FIXME: this throws many errors, so i remove it so there're no errors 
+			// console.error(error);
 		});
     }
 
@@ -119,7 +120,12 @@ class SelectWithSearch extends React.Component {
             .catch(error => {
                 console.error(error);
             });
-  	}
+
+		if(optionToRemove.value === this.state.selectedOption.value) {
+			this.setState({selectedOption:null})
+			console.log("dziala")
+  		}
+	}
 
 	// does selection
   	handleOptionSelect(option) {
@@ -168,14 +174,14 @@ class SelectWithSearch extends React.Component {
 
 			case 'uzytkownicy': 
 				if(addValue.split(' ').length > 1)
-					dataToInsert = {imie:addValue.split(' ')[0], nazwisko:addValue.split(' ')[1]}
+					dataToInsert = {imie:`'${addValue.split(' ')[0]}'`, nazwisko:`'${addValue.split(' ')[1]}'`}
 				else
 					return
 			break;
 
 
 			case 'rodzaje': 
-				dataToInsert = {rodzaj:addValue}
+				dataToInsert = {rodzaj:`'${addValue}'`}
 			break;
 
 
