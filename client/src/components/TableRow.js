@@ -1,28 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import SelectWithSearch from './SelectWithSearch';
 import Axios from 'axios';
 
 class TableRow extends React.Component{
-    getUzytkownicy(){
-        Axios.get('http://localhost:3001/dane_uzytkownicy').then((response) => {
-            this.setState({uzytkownicy:response.data});
-        });
-    }
-
-    getMiejsca(){
-        Axios.get('http://localhost:3001/dane_miejsca').then((response) => {
-            this.setState({miejsca:response.data});
-        });
-    }
-
-    getLaboranci(){
-        Axios.get('http://localhost:3001/dane_laboranci').then((response) => {
-            this.setState({laboranci:response.data});
-        });
-    }
-
-    getRodzaje(){
-        Axios.get('http://localhost:3001/dane_rodzaje').then((response) => {
-            this.setState({rodzaje:response.data});
+    updateRow(){
+        Axios.put(`http://localhost:3001/dane_rekordy/update/${this.data.id}`, this.data).then((response) => {
+            this.setState({});
         });
     }
 
@@ -37,12 +20,6 @@ class TableRow extends React.Component{
             shouldRender:true
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-
-        // gets all data for states from db
-        this.getLaboranci();
-        this.getMiejsca();
-        this.getRodzaje();
-        this.getUzytkownicy();
     }
 
     handleInputChange(event) {
@@ -53,21 +30,17 @@ class TableRow extends React.Component{
 
         // Here you can make db update query
         // place for query
+        this.updateRow();
     }    
 
     handleRowDelete = () => {
         this.setState({shouldRender:false})
         Axios.delete(`http://localhost:3001/dane_rekordy/delete/${this.data.id}`)
-        .then(response => {
-          console.log(response.data);
-          // update the state or do something else
-        })
         .catch(error => {
-          console.error(error);
+            console.error(error);
         });
-
-
     }
+
 
     render () {
         // fetch here nr_laborantow, miejsca, uzytkownicy, rodzaje with data from db
@@ -75,53 +48,82 @@ class TableRow extends React.Component{
             return null; // don't render anything if shouldRender is false
         }
 
-        const laboranci_fields = this.state.laboranci.map(data => {return(<option value={data.id}>{data.nr_laboranta}</option>)});
-        const miejsca_fields = this.state.miejsca.map(data => {return(<option value={data.id}>{data.nr_miejsca}</option>)});
-        const uzytkownicy_fields = this.state.uzytkownicy.map(data => {return(<option value={data.id}>{data.imie} {data.nazwisko}</option>)});
-        const rodzaje_fields = this.state.rodzaje.map(data => {return(<option value={data.id}>{data.rodzaj}</option>)});
-
         return (
             <tr className="table-row">
                 {/* unchangable id field */}
-                <td className='table-data'>{this.data.id}</td>
+                <td className='table-data'><p className='table-data-id'>{this.data.id}</p></td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'nr_laboranta'} onChange={this.handleInputChange} value={this.data.laborant_id}>
-                        {laboranci_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type='laboranci'
+                        name={'laborant_id'}
+                        onChange={(newValue) => {
+                            this.setState({
+                                inputValue: newValue
+                            });
+                            this.data.laborant_id = newValue;
+                            this.updateRow();
+                        }}
+                        value={this.data.laborant_id}
+                    />
                 </td>
 
                 {/* number field */}
-                <td className='table-data'><input type='number' name={"ilosc"} onChange={this.handleInputChange} value={this.data.ilosc}/></td>
+                <td className='table-data'><input type='number' name={"ilosc"} min='1' max='9999' onChange={this.handleInputChange} value={this.data.ilosc}/></td>
 
                 {/* selectable number field */}
                 <td className='table-data'>   
-                    <select name={'miejsce'} onChange={this.handleInputChange} value={this.data.miejsce_id ? this.data.miejsce_id : "" } >
-                        <option value=""></option>
-                        {miejsca_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type='miejsca'
+                        name={'miejsce_id'}
+                        onChange={(newValue) => {
+                            this.setState({
+                                inputValue: newValue
+                            });
+                            this.data['miejsce_id'] = newValue;
+                            this.updateRow();
+                        }}
+                        value={this.data.miejsce_id}
+                    />
                 </td>
 
                 {/* text field */}
-                <td className='table-data'><input type="text"   name={'nazwa'} onChange={this.handleInputChange} value={this.data.nazwa}/></td>
+                <td className='table-data'><input type="text" name={'nazwa'} onChange={this.handleInputChange} value={this.data.nazwa}/></td>
 
                 {/* number field */}
-                <td className='table-data'><input type="number" name={'nr_inwentarzowy'} onChange={this.handleInputChange} value={this.data.nr_inwentarzowy}/></td>
+                <td className='table-data'><input type="text"  name={'nr_inwentarzowy'} onChange={this.handleInputChange} value={this.data.nr_inwentarzowy}/></td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'uzytkownik'} onChange={this.handleInputChange} value={this.data.uzytkownik_id ? this.data.uzytkownik_id : "" }>
-                        <option value=""></option>
-                        {uzytkownicy_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type='uzytkownicy'
+                        name={'uzytkownik_id'}
+                        onChange={(newValue) => {
+                            this.setState({
+                                inputValue: newValue
+                            });
+                            this.data['uzytkownik_id'] = newValue;
+                            this.updateRow();
+                        }}
+                        value={this.data.uzytkownik_id}
+                    />
                 </td>
 
                 {/* selectable text field */}
                 <td className='table-data'>   
-                    <select name={'rodzaj'} onChange={this.handleInputChange} value={this.data.rodzaj_id}>
-                        {rodzaje_fields}
-                    </select>
+                    <SelectWithSearch 
+                        type='rodzaje'
+                        name={'rodzaj_id'}
+                        onChange={(newValue) => {
+                            this.setState({
+                                inputValue: newValue
+                            });
+                            this.data['rodzaj_id'] = newValue;
+                            this.updateRow();
+                        }}
+                        value={this.data.rodzaj_id}
+                    />
                 </td>
 
                 {/* selectable bool field */}
@@ -141,7 +143,7 @@ class TableRow extends React.Component{
                 </td>
 
                 <td className='table-data'>
-                    <button className="table-data__delete" onClick={this.handleRowDelete}>Usuń</button>
+                    <button className="buttonUsun-data" onClick={this.handleRowDelete}>Usuń</button>
                 </td>
             </tr>
         );
