@@ -1,6 +1,8 @@
 <h1>InwentaryzatorAMW</h1>
 <p>This is a project created during a monthly internship at the Academy of the Polish Navy in Gdynia (abbreviated as AMW). The Department of Computer Science needed a system for inventory management, so we provided them with this application, which was evaluated by our internship supervisor as excellent (grade 6, the highest possible grade), and he positively assessed our cooperation and commitment.</p>
 
+![Main window](https://cdn.discordapp.com/attachments/636278665151512635/1102367851307860059/ss1_1.png)
+
 <h2>Functionalities</h2>
 <ul>
 <li>Intuitive interface for adding records to the table</li>
@@ -13,6 +15,8 @@
 <li>Ability to print the table to PDF</li>
 <li>Pagination in case of too many data per page</li>
 </ul>
+
+![Printing](https://cdn.discordapp.com/attachments/636278665151512635/1102367851546943488/ss2_1.png)
 
 <h2>Tools and Technologies</h2>
 
